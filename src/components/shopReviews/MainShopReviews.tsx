@@ -8,7 +8,7 @@ import ReviewsList from './ReviewsList'
 import CreateReview from './modals/CreateReview/CreateReview'
 
 const MainShopReviews: FC = ({}) => {
-	const { reviews, fetchReviews } = useReviewsStore()
+	const { reviews, fetchReviews, isLoading } = useReviewsStore()
 
 	useEffect(() => {
 		fetchReviews()
@@ -28,7 +28,7 @@ const MainShopReviews: FC = ({}) => {
 
 				{/* Лист каталога */}
 				<div className='lg:col-span-4 order-2 lg:order-none '>
-					<ReviewsList reviews={reviews}></ReviewsList>
+					<ReviewsList isLoading={isLoading} reviews={reviews}></ReviewsList>
 				</div>
 			</div>
 		</div>

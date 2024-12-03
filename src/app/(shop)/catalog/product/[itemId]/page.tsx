@@ -1,14 +1,13 @@
 import MainItemCard from '@/components/catalog/item-card/MainItemCard'
-import { SearchParams } from 'next/dist/server/request/search-params'
 
-const ItemCard = async ({ params }: { params: SearchParams }) => {
+type PageParams = Promise<{ itemId: string }>
+
+export default async function ProductPage({ params }: { params: PageParams }) {
 	const { itemId } = await params
-	const productId = itemId as string
+
 	return (
 		<>
-			<MainItemCard productId={productId}></MainItemCard>
+			<MainItemCard productId={itemId} />
 		</>
 	)
 }
-
-export default ItemCard

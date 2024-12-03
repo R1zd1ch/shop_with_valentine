@@ -17,8 +17,15 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 } from '@/components/ui/pagination'
+import ReviewCardSkeleton from './ReviewCardSkeleton'
 
-const ReviewsList = ({ reviews }: { reviews: Review[] }) => {
+const ReviewsList = ({
+	reviews,
+	isLoading,
+}: {
+	reviews: Review[]
+	isLoading: boolean
+}) => {
 	const { sortOption } = useSortReviewsStore()
 	const itemsPerPage = 6
 	const [currentPage, setCurrentPage] = useState(1)
@@ -136,9 +143,13 @@ const ReviewsList = ({ reviews }: { reviews: Review[] }) => {
 			</CardHeader>
 			<CardContent className='px-4 md:px-4 pb-1 min-h-[700px]'>
 				<div className='mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-					{paginatedReviews.map(review => (
-						<ReviewCard key={review.id} review={review} />
-					))}
+					{isLoading
+						? Array.from({ length: 6 }).map((_, index) => (
+								<ReviewCardSkeleton key={index}></ReviewCardSkeleton>
+						  ))
+						: paginatedReviews.map(review => (
+								<ReviewCard key={review.id} review={review} />
+						  ))}
 				</div>
 			</CardContent>
 			<CardFooter className='w-full flex flex-col items-center'>

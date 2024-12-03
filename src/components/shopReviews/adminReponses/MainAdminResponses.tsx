@@ -1,5 +1,4 @@
 'use client'
-import { Card } from '@/components/ui/card'
 import { Review, useReviewsStore } from '@/storage/UseStoreReviews'
 import { useEffect } from 'react'
 import ResponsesHeader from './ResponsesHeader'

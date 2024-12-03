@@ -1,11 +1,8 @@
-import { FC } from 'react'
 import PurchaseHistory from '@/components/profile/PurchaseHistory'
 
-interface PageProps {
-	params: { tab: string }
-}
+type PageParams = Promise<{ tab: string }>
 
-const Page: FC<PageProps> = async ({ params }) => {
+const Page = async ({ params }: { params: PageParams }) => {
 	const { tab } = await params
 	console.log(await params)
 

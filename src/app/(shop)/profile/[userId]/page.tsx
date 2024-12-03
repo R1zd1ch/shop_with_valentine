@@ -1,8 +1,8 @@
-import { SearchParams } from 'next/dist/server/request/search-params'
 import MainProfile from '@/components/profile/MainProfile'
 
-const Profile = async ({ params }: { params: SearchParams }) => {
+const Profile = async ({ params }: { params: Promise<{ userId: string }> }) => {
 	const { userId } = await params
+	console.log(userId)
 	const userFIO = { username: 'Алёшка', lastName: 'Лепёшкович' }
 	return <MainProfile userFIO={userFIO} />
 }

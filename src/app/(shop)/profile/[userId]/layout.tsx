@@ -1,13 +1,12 @@
 import Header from '@/components/profile/Header'
 import InformationUser from '@/components/profile/InformationUser'
-import { SearchParams } from 'next/dist/server/request/search-params'
 
 const layout = async ({
 	children,
 	params,
 }: Readonly<{
 	children: React.ReactNode
-	params: SearchParams
+	params: Promise<{ userId: string }>
 }>) => {
 	const { userId } = await params
 	const id = userId as string

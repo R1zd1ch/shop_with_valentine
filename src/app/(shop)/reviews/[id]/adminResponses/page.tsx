@@ -1,7 +1,6 @@
 import MainAdminResponses from '../../../../../components/shopReviews/adminReponses/MainAdminResponses'
-import { SearchParams } from 'next/dist/server/request/search-params'
 
-const page = async ({ params }: { params: SearchParams }) => {
+const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 	const { id } = await params
 	const reviewId = id as string
 	return <MainAdminResponses reviewId={reviewId}></MainAdminResponses>
