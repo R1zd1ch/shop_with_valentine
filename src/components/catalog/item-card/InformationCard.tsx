@@ -13,10 +13,16 @@ import useCartStore from '@/storage/UseCartStore'
 import { Heart, Minus, Plus } from 'lucide-react'
 import ProductDetailsDialog from './ProductDetailsDialog'
 import { Product } from '@/storage/UseProductStore'
+import useFavouritesStore from '@/storage/UseFavourites'
 
 const InformationCard = ({ product }: { product: Product }) => {
 	const { addItem, setCurrentItem, CartItems, updateItem, removeItem } =
 		useCartStore()
+	const {
+		addFavourite,
+		removeFavouriteByUserAndProduct,
+		isFavouriteByUserAndProduct,
+	} = useFavouritesStore()
 
 	const { toast } = useToast()
 	const isOutOfStock = product.stock === 0
@@ -74,6 +80,28 @@ const InformationCard = ({ product }: { product: Product }) => {
 		const cartItems = useCartStore.getState().CartItems
 		return cartItems.some(item => item.productId === product.id)
 	}
+
+	const handleAddToFavourite = () => {
+		addFavourite({
+			id: Date.now(),
+			productId: product.id,
+			userId: 1,
+		})
+		toast({
+			title: 'Товар добавлен в избранное ✅',
+			description: `Товар: ${product.name}`,
+		})
+	}
+
+	const handleRemoveFromFavourite = () => {
+		removeFavouriteByUserAndProduct(1, product.id)
+		toast({
+			title: 'Товар удален из избранного ❌',
+			description: `Товар: ${product.name}`,
+		})
+	}
+
+	const isFavourite = isFavouriteByUserAndProduct(1, product.id)
 
 	return (
 		<Card className='flex flex-col flex-1 rounded-lg bg-card shadow-md border text-card-foreground shadow-black/20 w-full'>
@@ -161,8 +189,13 @@ const InformationCard = ({ product }: { product: Product }) => {
 
 					<Button
 						disabled={isOutOfStock}
-						onClick={handleAddToCart}
-						className={`py-2 rounded-lg text-sm font-medium `}
+						variant={'outline'}
+						onClick={
+							isFavourite ? handleRemoveFromFavourite : handleAddToFavourite
+						}
+						className={`py-2 rounded-lg text-sm font-medium ${
+							isFavourite ? ' bg-primary ' : ' '
+						}`}
 					>
 						<Heart></Heart>
 					</Button>

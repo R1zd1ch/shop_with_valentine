@@ -5,13 +5,14 @@ import useCartStore from '@/storage/UseCartStore' // Путь к zustand-хра�
 
 const MainCart = () => {
 	const { CartItems, setCurrentItem, updateItem, removeItem } = useCartStore()
+	const userId = 1
 
 	const handleRemoveItem = (id: number) => removeItem(id)
 
 	const IncItem = (id: number) => {
 		const item = CartItems.find(i => i.id === id)
 		if (item) {
-			setCurrentItem({ ...item, quantity: item.quantity + 1 })
+			setCurrentItem({ ...item, quantity: item.quantity + 1, userId })
 			updateItem()
 		}
 	}
@@ -21,7 +22,7 @@ const MainCart = () => {
 		if (item) {
 			const newQuantity = item.quantity - 1
 			if (newQuantity > 0) {
-				setCurrentItem({ ...item, quantity: newQuantity })
+				setCurrentItem({ ...item, quantity: newQuantity, userId })
 				updateItem()
 			} else {
 				removeItem(id)
@@ -39,6 +40,7 @@ const MainCart = () => {
 						onRemoveItem={handleRemoveItem}
 						onIncItem={IncItem}
 						onDecItem={DecItem}
+						userId={userId}
 					/>
 				</div>
 

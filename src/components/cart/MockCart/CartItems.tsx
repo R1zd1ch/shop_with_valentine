@@ -14,6 +14,7 @@ interface CartItem {
 }
 
 interface CartItemsProps {
+	userId: number
 	items: CartItem[]
 	onRemoveItem?: (id: number) => void
 	onIncItem?: (id: number) => void
@@ -25,6 +26,7 @@ const CartItems: FC<CartItemsProps> = ({
 	onRemoveItem,
 	onIncItem,
 	onDecItem,
+	userId,
 }) => {
 	const { products, fetchProducts } = useProductStore()
 
@@ -58,6 +60,7 @@ const CartItems: FC<CartItemsProps> = ({
 									onRemove={onRemoveItem}
 									onIncrease={onIncItem}
 									onDecrease={onDecItem}
+									userId={userId}
 								/>
 							)
 						})}

@@ -2,11 +2,12 @@ import { Card, CardContent, CardFooter, CardHeader } from '../ui/card'
 import { Button } from '../ui/button'
 import Image from 'next/image'
 import useCartStore from '@/storage/UseCartStore'
-import { Minus, Plus } from 'lucide-react'
+import { Heart, Minus, Plus } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
 import CatalogCarousel from './CatalogCarousel'
 import { Product } from '@/storage/UseProductStore'
+import useFavouritesStore from '@/storage/UseFavourites'
 
 const ProductCard = ({ product }: { product: Product }) => {
 	const router = useRouter()
@@ -14,7 +15,12 @@ const ProductCard = ({ product }: { product: Product }) => {
 
 	const { addItem, setCurrentItem, CartItems, updateItem, removeItem } =
 		useCartStore()
-
+	const {
+		addFavourite,
+		removeFavouriteByUserAndProduct,
+		isFavouriteByUserAndProduct,
+	} = useFavouritesStore()
+	const userId = 1
 	const { toast } = useToast()
 
 	const handleAddToCart = () => {
@@ -22,7 +28,7 @@ const ProductCard = ({ product }: { product: Product }) => {
 			id: product.id,
 			productId: product.id,
 			price: product.price,
-			userId: 1,
+			userId: userId,
 			quantity: 1,
 			discountPrice: product.discountPrice ? product.discountPrice : undefined,
 		})
@@ -42,6 +48,7 @@ const ProductCard = ({ product }: { product: Product }) => {
 				quantity: item.quantity + 1,
 			})
 			updateItem()
+			console.log(CartItems)
 		} else {
 			console.log('Item not found in cart')
 		}
@@ -76,14 +83,52 @@ const ProductCard = ({ product }: { product: Product }) => {
 		router.push(`/catalog/product/${product.id}`)
 	}
 
+	const handleAddToFavourite = () => {
+		addFavourite({
+			id: Date.now(),
+			productId: product.id,
+			userId: 1,
+		})
+		toast({
+			title: 'Товар добавлен в избранное ✅',
+			description: `Товар: ${product.name}`,
+		})
+	}
+
+	const handleRemoveFromFavourite = () => {
+		removeFavouriteByUserAndProduct(1, product.id)
+		toast({
+			title: 'Товар удален из избранного ❌',
+			description: `Товар: ${product.name}`,
+		})
+	}
+
+	const isFavourite = isFavouriteByUserAndProduct(1, product.id)
+
 	return (
 		<Card
-			className='relative flex flex-col p-0 rounded-lg shadow-md bg-card group transition-shadow hover:shadow-lg no-select'
+			className='relative flex flex-col p-0 rounded-lg shadow-md bg-card group transition-shadow hover:shadow-lg no-select '
 			onClick={handlePageCard} // Переход при клике на карточку
 		>
 			<CardHeader className='relative rounded-lg overflow-hidden p-0'>
 				{/* Карусель или изображение */}
-				<div onClick={e => e.stopPropagation() /* Останавливаем всплытие */}>
+				<div
+					className=''
+					onClick={e => e.stopPropagation() /* Останавливаем всплытие */}
+				>
+					<Button
+						size={'sm'}
+						variant={'outline'}
+						disabled={isOutOfStock}
+						onClick={
+							isFavourite ? handleRemoveFromFavourite : handleAddToFavourite
+						}
+						className={`absolute right-2 top-2 z-50 py-2 rounded-lg text-sm font-medium opacity-50 ${
+							isFavourite ? ' bg-primary hover:bg-primary/80 opacity-100' : ''
+						}`}
+					>
+						<Heart></Heart>
+					</Button>
 					{typeof product.img === 'string' ? (
 						<Image
 							draggable={false}

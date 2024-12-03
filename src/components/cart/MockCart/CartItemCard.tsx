@@ -6,8 +6,11 @@ import { Button } from '../../ui/button'
 import { Heart, Minus, Plus, Trash } from 'lucide-react'
 import Image from 'next/image'
 import { Product } from '@/storage/UseProductStore'
+import useFavouritesStore from '@/storage/UseFavourites'
+import { useToast } from '@/hooks/use-toast'
 
 interface CartItemCardProps {
+	userId: number
 	product: Product
 	quantity: number
 	onRemove?: (id: number) => void
@@ -21,12 +24,42 @@ const CartItemCard: FC<CartItemCardProps> = ({
 	onRemove,
 	onIncrease,
 	onDecrease,
+	userId,
 }) => {
 	const hasDiscount =
 		product.discountPrice && product.discountPrice < product.price
 	const displayPrice = hasDiscount
 		? product.discountPrice?.toLocaleString()
 		: product.price.toLocaleString()
+
+	const {
+		addFavourite,
+		removeFavouriteByUserAndProduct,
+		isFavouriteByUserAndProduct,
+	} = useFavouritesStore()
+	const { toast } = useToast()
+
+	const handleAddToFavourite = () => {
+		addFavourite({
+			id: Date.now(),
+			productId: product.id,
+			userId: userId,
+		})
+		toast({
+			title: 'Товар добавлен в избранное ✅',
+			description: `Товар: ${product.name}`,
+		})
+	}
+
+	const handleRemoveFromFavourite = () => {
+		removeFavouriteByUserAndProduct(userId, product.id)
+		toast({
+			title: 'Товар удален из избранного ❌',
+			description: `Товар: ${product.name}`,
+		})
+	}
+
+	const isFavourite = isFavouriteByUserAndProduct(userId, product.id)
 
 	return (
 		<Card className='flex flex-col gap-4 p-4 shadow-sm md:flex-col lg:flex-row h-full w-full'>
@@ -100,7 +133,10 @@ const CartItemCard: FC<CartItemCardProps> = ({
 					<Button
 						size='sm'
 						variant='secondary'
-						onClick={() => onRemove?.(product.id)}
+						onClick={
+							isFavourite ? handleRemoveFromFavourite : handleAddToFavourite
+						}
+						className={`${isFavourite ? 'bg-primary ' : ''}`}
 						aria-label='Удалить из корзины'
 					>
 						<Heart />
