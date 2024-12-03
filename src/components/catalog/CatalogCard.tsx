@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader } from '../ui/card'
+import { Card, CardContent, CardFooter, CardHeader } from '../ui/card'
 import { Button } from '../ui/button'
 import Image from 'next/image'
 import useCartStore from '@/storage/UseCartStore'
@@ -24,6 +24,7 @@ const ProductCard = ({ product }: { product: Product }) => {
 			price: product.price,
 			userId: 1,
 			quantity: 1,
+			discountPrice: product.discountPrice ? product.discountPrice : undefined,
 		})
 		addItem()
 
@@ -108,14 +109,27 @@ const ProductCard = ({ product }: { product: Product }) => {
 					<p className='text-xs text-muted-foreground truncate'>
 						{product.description}
 					</p>
-					<p className='text-md font-bold text-card-foreground'>
-						{product.price.toLocaleString()} ₽
-					</p>
+					<div className='flex flex-row  items start gap-2'>
+						<p className='text-base font-bold text-card-foreground '>
+							{product.discountPrice ? (
+								<span className='text-red-500 text-lg'>
+									{product.discountPrice.toLocaleString()} ₽
+								</span>
+							) : (
+								product.price.toLocaleString() + ' ₽'
+							)}{' '}
+						</p>
+						{product.discountPrice && (
+							<p className='text-xs line-through text-muted-foreground'>
+								{product.price.toLocaleString()} ₽
+							</p>
+						)}
+					</div>
 				</div>
 
-				<div
-					className='flex items-end justify-center mt-2 sm:flex'
-					onClick={e => e.stopPropagation() /* Останавливаем всплытие */}
+				<CardFooter
+					className='p-0 flex items-end justify-center mt-2 sm:flex'
+					onClick={e => e.stopPropagation()}
 				>
 					{isInCart() ? (
 						<div className='rounded-lg w-full text-sm font-medium bg-primary text-primary-foreground flex items-center justify-center min-h-[36px]'>
@@ -150,7 +164,7 @@ const ProductCard = ({ product }: { product: Product }) => {
 							{isOutOfStock ? 'Нет в наличии' : 'В корзину'}
 						</Button>
 					)}
-				</div>
+				</CardFooter>
 			</CardContent>
 		</Card>
 	)

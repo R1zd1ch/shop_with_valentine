@@ -11,7 +11,8 @@ import {
 import { useToast } from '@/hooks/use-toast'
 import useCartStore from '@/storage/UseCartStore'
 import { Heart, Minus, Plus } from 'lucide-react'
-import ProductDetailsDialog, { Product } from './ProductDetailsDialog'
+import ProductDetailsDialog from './ProductDetailsDialog'
+import { Product } from '@/storage/UseProductStore'
 
 const InformationCard = ({ product }: { product: Product }) => {
 	const { addItem, setCurrentItem, CartItems, updateItem, removeItem } =
@@ -26,6 +27,7 @@ const InformationCard = ({ product }: { product: Product }) => {
 			price: product.price,
 			userId: 1,
 			quantity: 1,
+			discountPrice: product.discountPrice ? product.discountPrice : undefined,
 		})
 		addItem()
 

@@ -29,6 +29,7 @@ const CatalogList: FC = () => {
 		compatibility,
 		searchTerm,
 		setSearchTerm,
+		isDiscount,
 	} = useFilterStore()
 	const { products, isLoading, fetchProducts } = useProductStore()
 
@@ -54,6 +55,7 @@ const CatalogList: FC = () => {
 		availability,
 		compatibility,
 		searchTerm,
+		isDiscount,
 	])
 
 	const filteredProducts = useMemo(() => {
@@ -74,6 +76,10 @@ const CatalogList: FC = () => {
 					product.description.toLowerCase().includes(lowerSearch)
 				)
 			}
+			if (isDiscount !== null) {
+				if (isDiscount == true && !product.discountPrice) return false
+				if (isDiscount == false && product.discountPrice) return false
+			}
 			return true
 		})
 	}, [
@@ -86,6 +92,7 @@ const CatalogList: FC = () => {
 		compatibility,
 		searchTerm,
 		isLoading,
+		isDiscount,
 	])
 
 	const paginatedProducts = useMemo(() => {

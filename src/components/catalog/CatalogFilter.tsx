@@ -22,12 +22,15 @@ const CatalogFilter = () => {
 		memory,
 		availability,
 		compatibility,
+		isDiscount,
 		setCategory,
 		setPriceRange,
 		setColor,
 		setMemory,
 		setAvailability,
 		setCompatibility,
+		setIsDiscount,
+		resetAll,
 	} = useFilterStore()
 
 	return (
@@ -79,7 +82,6 @@ const CatalogFilter = () => {
 							</SelectContent>
 						</Select>
 					</FilterGroup>
-
 					{/* Price Range Filter */}
 					<FilterGroup label='Ценовой диапазон'>
 						<Slider
@@ -95,7 +97,6 @@ const CatalogFilter = () => {
 							<span>{priceRange[1]} ₽</span>
 						</div>
 					</FilterGroup>
-
 					{/* Color Filter */}
 					<FilterGroup label='Цвет'>
 						<Select
@@ -122,7 +123,6 @@ const CatalogFilter = () => {
 							</SelectContent>
 						</Select>
 					</FilterGroup>
-
 					{/* Memory Filter */}
 					<FilterGroup label='Память'>
 						<Select
@@ -148,7 +148,6 @@ const CatalogFilter = () => {
 							</SelectContent>
 						</Select>
 					</FilterGroup>
-
 					{/* Availability Filter */}
 					<FilterGroup label='Наличие'>
 						<Select
@@ -171,7 +170,6 @@ const CatalogFilter = () => {
 							</SelectContent>
 						</Select>
 					</FilterGroup>
-
 					{/* Compatibility Filter */}
 					<FilterGroup label='Совместимость'>
 						<Select
@@ -196,6 +194,35 @@ const CatalogFilter = () => {
 							</SelectContent>
 						</Select>
 					</FilterGroup>
+					{/* Скидка? */}
+					<FilterGroup label='Горячие предложения'>
+						<Select
+							value={isDiscount !== null ? String(isDiscount) : ''}
+							onValueChange={value => {
+								const parsedValue =
+									value === 'true' ? true : value === 'false' ? false : null
+								setIsDiscount(parsedValue)
+							}}
+						>
+							<SelectTrigger className='w-full'>
+								<SelectValue placeholder='Со скидкой?' />
+							</SelectTrigger>
+							<SelectContent>
+								{[
+									{ value: 'true', label: 'Да' },
+									{ value: 'false', label: 'Нет' },
+									{ value: 'all', label: 'Все' },
+								].map(item => (
+									<SelectItem key={item.value} value={item.value}>
+										{item.label}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
+					</FilterGroup>
+					<Button onClick={() => resetAll()} className='w-full'>
+						Сбросить фильтры
+					</Button>
 				</CardContent>
 			</div>
 		</Card>

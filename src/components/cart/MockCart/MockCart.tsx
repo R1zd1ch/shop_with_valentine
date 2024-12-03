@@ -16,10 +16,6 @@ const MainCart = () => {
 		}
 	}
 
-	// useEffect(() => {
-	// 	loadMockData()
-	// }, [])
-
 	const DecItem = (id: number) => {
 		const item = CartItems.find(i => i.id === id)
 		if (item) {
@@ -48,9 +44,7 @@ const MainCart = () => {
 
 				{/* Правая часть: CartRightSide */}
 				<div className='w-full md:w-[30%]'>
-					<CartRightSide
-						priceList={CartItems.map(item => item.price * item.quantity)}
-					/>
+					<CartRightSide />
 				</div>
 			</div>
 		</div>

@@ -6,6 +6,7 @@ export interface CartItem {
 	productId: number
 	quantity: number
 	price: number
+	discountPrice?: number // Скидочная цена товара в корзине
 }
 
 export interface PromoCode {
@@ -71,7 +72,14 @@ const useCartStore = create<CartStore>((set, get) => ({
 
 	loadMockData: () => {
 		const mockCartItems = [
-			{ id: 1, userId: 1, productId: 1, quantity: 2, price: 100 },
+			{
+				id: 1,
+				userId: 1,
+				productId: 1,
+				quantity: 2,
+				price: 100,
+				discountPrice: 90,
+			},
 			{ id: 2, userId: 1, productId: 2, quantity: 1, price: 200 },
 		]
 		get().setCartItems(mockCartItems)
@@ -106,11 +114,13 @@ const useCartStore = create<CartStore>((set, get) => ({
 	setCartItems: items => {
 		const { appliedPromoCode } = get()
 
-		const total = items.reduce(
-			(acc, item) => acc + item.price * item.quantity,
-			0
-		)
+		// Рассчитываем общую стоимость с учетом скидочных цен
+		const total = items.reduce((acc, item) => {
+			const itemPrice = item.discountPrice ?? item.price
+			return acc + itemPrice * item.quantity
+		}, 0)
 
+		// Применяем промокод, если он есть
 		const discount = appliedPromoCode
 			? appliedPromoCode.isPercent
 				? Math.min(total * (appliedPromoCode.discount / 100), total)
@@ -126,7 +136,14 @@ const useCartStore = create<CartStore>((set, get) => ({
 
 	addItem: () => {
 		const { currentItem, CartItems } = get()
-		const { id, userId, productId, quantity = 1, price = 0 } = currentItem
+		const {
+			id,
+			userId,
+			productId,
+			quantity = 1,
+			price = 0,
+			discountPrice,
+		} = currentItem
 
 		if (!id || !productId) return
 
@@ -141,6 +158,7 @@ const useCartStore = create<CartStore>((set, get) => ({
 				productId,
 				quantity,
 				price,
+				discountPrice,
 			})
 		}
 
@@ -149,10 +167,10 @@ const useCartStore = create<CartStore>((set, get) => ({
 
 	updateItem: () => {
 		const { currentItem, CartItems } = get()
-		const { id, quantity = 1, price = 0 } = currentItem
+		const { id, quantity = 1, price = 0, discountPrice } = currentItem
 
 		const updatedCartItems = CartItems.map(item =>
-			item.id === id ? { ...item, quantity, price } : item
+			item.id === id ? { ...item, quantity, price, discountPrice } : item
 		)
 
 		get().setCartItems(updatedCartItems)
@@ -179,7 +197,8 @@ const useCartStore = create<CartStore>((set, get) => ({
 	updateCurrentItemQuantity: quantity =>
 		set(state => {
 			const currentPricePerUnit =
-				(state.currentItem.price || 0) / (state.currentItem.quantity || 1)
+				((state.currentItem.discountPrice ?? state.currentItem.price) || 0) /
+				(state.currentItem.quantity || 1)
 			return {
 				currentItem: {
 					...state.currentItem,

@@ -10,6 +10,7 @@ interface CartItem {
 	productId: number
 	quantity: number
 	price: number
+	discountPrice?: number // Скидочная цена товара
 }
 
 interface CartItemsProps {
@@ -31,15 +32,15 @@ const CartItems: FC<CartItemsProps> = ({
 		fetchProducts()
 	}, [fetchProducts])
 
+	// Общее количество товаров
 	const totalItems = items.reduce((total, item) => total + item.quantity, 0)
 
 	return (
-		<Card className='min-h-[400px] max-h-[94vh] md:min-h-screen md:max-h-screen '>
+		<Card className='min-h-[400px] max-h-[94vh] md:min-h-screen md:max-h-screen'>
 			<CardHeader className='flex justify-between flex-row'>
 				<CardTitle>Ваша корзина</CardTitle>
 				<p>Всего товаров: {totalItems}</p>
 			</CardHeader>
-			{/* <CardContent className='overflow-y-auto max-h-[320px] md:max-h-[88.5vh] px-0 md:px-4'> */}
 			<CardContent className='overflow-y-auto max-h-[88vh] md:max-h-[88.5vh] px-0 md:px-4'>
 				{items.length === 0 ? (
 					<p className='text-muted-foreground'>Ваша корзина пуста</p>

@@ -53,6 +53,7 @@ interface FilterState {
 	memory: string
 	availability: 'all' | 'inStock' | 'preOrder'
 	compatibility: string
+	isDiscount: boolean | null
 	categoryMain: CategoryForMain[]
 
 	setCategory: (category: string) => void
@@ -62,27 +63,47 @@ interface FilterState {
 	setAvailability: (availability: 'all' | 'inStock' | 'preOrder') => void
 	setCompatibility: (compatibility: string) => void
 	setSearchTerm: (searchTerm: string) => void
+	setIsDiscount: (isDiscount: boolean | null) => void
+	resetAll: () => void
+}
+
+const initialState: Omit<
+	FilterState,
+	| 'setCategory'
+	| 'setPriceRange'
+	| 'setColor'
+	| 'setMemory'
+	| 'setAvailability'
+	| 'setCompatibility'
+	| 'setSearchTerm'
+	| 'setIsDiscount'
+	| 'resetAll'
+> = {
+	searchTerm: '',
+	category: 'all',
+	priceRange: [0, 500000],
+	color: 'all',
+	memory: 'all',
+	availability: 'all',
+	compatibility: 'all',
+	categoryMain: dataCategoryMain,
+	isDiscount: null,
 }
 
 const useFilterStore = create<FilterState>()(
 	devtools(
 		set => ({
-			searchTerm: '',
-			category: 'all',
-			priceRange: [0, 500000],
-			color: 'all',
-			memory: 'all',
-			availability: 'all',
-			compatibility: 'all',
-			categoryMain: dataCategoryMain,
+			...initialState,
 
-			setCategory: category => set({ category }),
-			setPriceRange: priceRange => set({ priceRange }),
-			setColor: color => set({ color }),
-			setMemory: memory => set({ memory }),
-			setAvailability: availability => set({ availability }),
-			setCompatibility: compatibility => set({ compatibility }),
-			setSearchTerm: searchTerm => set({ searchTerm }),
+			setCategory: category => set(() => ({ category })),
+			setPriceRange: priceRange => set(() => ({ priceRange })),
+			setColor: color => set(() => ({ color })),
+			setMemory: memory => set(() => ({ memory })),
+			setAvailability: availability => set(() => ({ availability })),
+			setCompatibility: compatibility => set(() => ({ compatibility })),
+			setSearchTerm: searchTerm => set(() => ({ searchTerm })),
+			setIsDiscount: isDiscount => set(() => ({ isDiscount })),
+			resetAll: () => set(() => ({ ...initialState })),
 		}),
 		{ name: 'FilterStore' } // имя для отображения в devtools
 	)

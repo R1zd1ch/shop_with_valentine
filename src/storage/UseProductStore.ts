@@ -12,6 +12,7 @@ export interface Product {
 	memory: string
 	compatibility: string
 	img: string[] | string
+	orderCount?: number // Добавлено поле orderCount
 }
 
 interface ProductState {
@@ -20,6 +21,7 @@ interface ProductState {
 	error: string | null
 	fetchProducts: () => void
 	getProductById: (id: number) => Product
+	getPopularProducts: (count: number) => Product[]
 }
 
 const MOCK_PRODUCTS: Product[] = [
@@ -38,6 +40,7 @@ const MOCK_PRODUCTS: Product[] = [
 			'https://via.placeholder.com/600x500',
 			'https://via.placeholder.com/600x400',
 		],
+		orderCount: 5, // Пример значения
 	},
 	{
 		id: 2,
@@ -70,7 +73,10 @@ const MOCK_PRODUCTS: Product[] = [
 			'https://via.placeholder.com/600x400',
 			'https://via.placeholder.com/600x400',
 			'https://via.placeholder.com/600x400',
+			'https://via.placeholder.com/600x400',
+			'https://via.placeholder.com/600x400',
 		],
+		orderCount: 10,
 	},
 	{
 		id: 4,
@@ -148,6 +154,12 @@ const useProductStore = create<ProductState>(set => ({
 
 	getProductById: (id: number): Product => {
 		return MOCK_PRODUCTS.find(product => product.id === id) ?? ({} as Product)
+	},
+
+	getPopularProducts: (count: number) => {
+		return MOCK_PRODUCTS.filter(product => product.orderCount !== undefined)
+			.sort((a, b) => b.orderCount! - a.orderCount!)
+			.slice(0, Math.min(count, MOCK_PRODUCTS.length))
 	},
 }))
 

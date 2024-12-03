@@ -22,13 +22,19 @@ const CartItemCard: FC<CartItemCardProps> = ({
 	onIncrease,
 	onDecrease,
 }) => {
+	const hasDiscount =
+		product.discountPrice && product.discountPrice < product.price
+	const displayPrice = hasDiscount
+		? product.discountPrice?.toLocaleString()
+		: product.price.toLocaleString()
+
 	return (
-		<Card className='flex flex-col gap-4 p-4  shadow-sm md:flex-col lg:flex-row h-full w-full'>
+		<Card className='flex flex-col gap-4 p-4 shadow-sm md:flex-col lg:flex-row h-full w-full'>
 			{/* Изображение товара */}
 			<div className='flex flex-row gap-4'>
 				<div className='md:w-auto'>
 					<Image
-						src={product.img}
+						src={typeof product.img === 'string' ? product.img : product.img[0]}
 						alt={product.name}
 						width={80}
 						height={80}
@@ -37,13 +43,25 @@ const CartItemCard: FC<CartItemCardProps> = ({
 				</div>
 
 				{/* Основная информация */}
-				<div className='flex flex-1 flex-col gap-2 '>
+				<div className='flex flex-1 flex-col gap-2'>
 					<div className='flex justify-between md:items-center'>
 						<p className='font-semibold text-lg truncate'>{product.name}</p>
 					</div>
-					<p className='text-primary font-semibold text-lg'>
-						{product.price.toLocaleString()} ₽
-					</p>
+					{/* Цена */}
+					<div>
+						<p
+							className={`text-lg font-semibold ${
+								hasDiscount ? 'text-primary' : ''
+							}`}
+						>
+							{displayPrice} ₽
+						</p>
+						{hasDiscount && (
+							<p className='text-muted-foreground line-through text-sm'>
+								{product.price.toLocaleString()} ₽
+							</p>
+						)}
+					</div>
 					<p className='text-xs text-muted-foreground lg:text-sm line-clamp-1'>
 						{product.description}
 					</p>
@@ -57,8 +75,8 @@ const CartItemCard: FC<CartItemCardProps> = ({
 			</div>
 
 			{/* Управление */}
-			<div className='flex  gap-2 items-center justify-between md:flex-row lg:flex-col lg:ml-auto flex-1 lg:items-end '>
-				<div className='flex  gap-2 items-center lg:mt-12'>
+			<div className='flex gap-2 items-center justify-between md:flex-row lg:flex-col lg:ml-auto flex-1 lg:items-end'>
+				<div className='flex gap-2 items-center lg:mt-12'>
 					<Button
 						size='sm'
 						variant='secondary'
@@ -78,7 +96,7 @@ const CartItemCard: FC<CartItemCardProps> = ({
 					</Button>
 				</div>
 
-				<div className=' flex gap-2 md:gap-2 lg:gap-6 items-center'>
+				<div className='flex gap-2 md:gap-2 lg:gap-6 items-center'>
 					<Button
 						size='sm'
 						variant='secondary'

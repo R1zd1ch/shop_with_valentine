@@ -45,38 +45,40 @@ const Testimonials = () => {
 			</div>
 
 			<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6'>
-				{testimonials.map(testimonial => (
-					<Card
-						key={testimonial.id}
-						className='flex flex-col items-center text-center bg-card rounded-lg shadow p-4 sm:p-6 hover:shadow-lg transition-shadow dark:shadow-white/10'
-					>
-						{/* User Avatar */}
-						<CardHeader>
-							<div className='w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden mb-4'>
-								<Image
-									src={'https://via.placeholder.com/150x150'}
-									alt={testimonial.name}
-									width={96}
-									height={96}
-									className='object-cover'
-								/>
-							</div>
-						</CardHeader>
-						{/* Name and Title */}
-						<CardContent>
-							<h3 className='text-base sm:text-lg font-semibold text-foreground'>
-								{testimonial.name}
-							</h3>
-							<p className='text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-4'>
-								{testimonial.title}
-							</p>
-							{/* Feedback */}
-							<p className='text-xs sm:text-sm text-muted-foreground italic'>
-								“{testimonial.feedback}”
-							</p>
-						</CardContent>
-					</Card>
-				))}
+				{testimonials.map(testimonial => {
+					return (
+						<Card
+							key={testimonial.id}
+							className='flex flex-col items-center text-center bg-card rounded-lg shadow p-4 sm:p-6 hover:shadow-lg transition-shadow dark:shadow-white/10'
+						>
+							{/* User Avatar */}
+							<CardHeader>
+								<div className='w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden mb-4'>
+									<Image
+										src={'https://via.placeholder.com/150x150'}
+										alt={testimonial.name}
+										width={96}
+										height={96}
+										className='object-cover'
+									/>
+								</div>
+							</CardHeader>
+							{/* Name and Title */}
+							<CardContent>
+								<h3 className='text-base sm:text-lg font-semibold text-foreground'>
+									{testimonial.name}
+								</h3>
+								<p className='text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-4'>
+									{testimonial.title}
+								</p>
+								{/* Feedback */}
+								<p className='text-xs sm:text-sm text-muted-foreground italic'>
+									“{testimonial.feedback}”
+								</p>
+							</CardContent>
+						</Card>
+					)
+				})}
 			</div>
 		</Card>
 	)
