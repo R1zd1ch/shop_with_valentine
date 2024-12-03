@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
 // Тип данных для ответа администратора
-type AdminResponse = {
+export type AdminResponse = {
 	id: number
 	userId: number
 	name: string
@@ -132,7 +132,7 @@ const useReviewsStore = create<ReviewsState>((set, get) => ({
 		setTimeout(() => {
 			// Заглушка данных
 			set({ reviews: MockReviews, isLoading: false })
-		})
+		}, 1000)
 	},
 
 	deleteReview: id =>

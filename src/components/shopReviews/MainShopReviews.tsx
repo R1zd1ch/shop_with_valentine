@@ -6,7 +6,6 @@ import SortReviews from './SortReviews'
 import { useReviewsStore } from '@/storage/UseStoreReviews'
 import ReviewsList from './ReviewsList'
 import CreateReview from './modals/CreateReview/CreateReview'
-import { Card } from '../ui/card'
 
 const MainShopReviews: FC = ({}) => {
 	const { reviews, fetchReviews } = useReviewsStore()

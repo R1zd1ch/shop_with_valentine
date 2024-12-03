@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 import { Button } from '../ui/button'
+import Link from 'next/link'
 
 const MainBanner = () => {
 	return (
@@ -15,7 +16,7 @@ const MainBanner = () => {
 						Исследуйте последние гаджеты и аксессуары с невероятными ценами!
 					</p>
 					<Button className='bg-primary text-primary-foreground px-9 py-6 shadow-xl text-md'>
-						К покупкам
+						<Link href={'/catalog'}>К покупкам</Link>
 					</Button>
 				</div>
 

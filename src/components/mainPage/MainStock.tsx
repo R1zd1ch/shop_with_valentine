@@ -29,7 +29,7 @@ const MainStock = () => {
 			</div>
 			<div className='grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-2 sm:gap-6'>
 				{isLoading
-					? Array.from({ length: 4 }).map((_, index) => (
+					? Array.from({ length: 5 }).map((_, index) => (
 							<SkeletonCard key={index}></SkeletonCard>
 					  ))
 					: products.map(

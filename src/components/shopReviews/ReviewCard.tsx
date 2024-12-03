@@ -8,6 +8,7 @@ import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
 import DeleteReview from './modals/DeleteReview/DeleteReview'
 import EditReview from './modals/EditReview/EditReview'
+import Link from 'next/link'
 
 const ReviewCard = ({ review }: { review: Review }) => {
 	const textLength = review.text.split('').length
@@ -79,7 +80,9 @@ const ReviewCard = ({ review }: { review: Review }) => {
 								)}
 							</p>
 							<p className='text-sm font-bold hover:text-primary/80 cursor-pointer'>
-								Посмотреть
+								<Link href={`/reviews/${review.id}/adminResponses`}>
+									Посмотреть
+								</Link>
 							</p>
 						</div>
 					) : (
