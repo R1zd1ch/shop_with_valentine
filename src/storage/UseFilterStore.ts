@@ -1,6 +1,50 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
+interface CategoryForMain {
+	id: number
+	name: string
+	value: string
+}
+
+const dataCategoryMain: CategoryForMain[] = [
+	{
+		id: 1,
+		name: 'Macbooks',
+		value: 'macbook',
+	},
+	{
+		id: 2,
+		name: 'Iphones',
+		value: 'iphone',
+	},
+	{
+		id: 3,
+		name: 'Accessories',
+		value: 'accessories',
+	},
+	{
+		id: 5,
+		name: 'Ipads',
+		value: 'ipad',
+	},
+	{
+		id: 6,
+		name: 'AppleWatch',
+		value: 'watch',
+	},
+	{
+		id: 7,
+		name: 'AirPods',
+		value: 'airpods',
+	},
+	{
+		id: 8,
+		name: 'All',
+		value: 'all',
+	},
+]
+
 interface FilterState {
 	searchTerm: string
 	category: string
@@ -9,6 +53,7 @@ interface FilterState {
 	memory: string
 	availability: 'all' | 'inStock' | 'preOrder'
 	compatibility: string
+	categoryMain: CategoryForMain[]
 
 	setCategory: (category: string) => void
 	setPriceRange: (priceRange: [number, number]) => void
@@ -29,6 +74,7 @@ const useFilterStore = create<FilterState>()(
 			memory: 'all',
 			availability: 'all',
 			compatibility: 'all',
+			categoryMain: dataCategoryMain,
 
 			setCategory: category => set({ category }),
 			setPriceRange: priceRange => set({ priceRange }),

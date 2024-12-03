@@ -5,6 +5,7 @@ export interface Product {
 	name: string
 	description: string
 	price: number
+	discountPrice?: number
 	stock: number
 	category: string
 	color: string
@@ -71,7 +72,65 @@ const MOCK_PRODUCTS: Product[] = [
 			'https://via.placeholder.com/600x400',
 		],
 	},
-	// Добавьте остальные товары по аналогии
+	{
+		id: 4,
+		name: 'AirPods Pro',
+		description: 'Беспроводные наушники с высоким качеством звука.',
+		price: 12990,
+		discountPrice: 9990,
+		stock: 100,
+		category: 'airpods',
+		color: 'white',
+		memory: '1gb',
+		img: [
+			'https://via.placeholder.com/600x400',
+			'https://via.placeholder.com/600x400',
+		],
+		compatibility: 'ios',
+	},
+	{
+		id: 5,
+		name: 'iPad Pro 11" M2',
+		description: 'Мощный ноутбук для профессионалов с чипом M2.',
+		price: 99990,
+		discountPrice: 89990,
+		stock: 5,
+		category: 'ipad',
+		color: 'silver',
+		memory: '1tb',
+		compatibility: 'macos',
+		img: 'https://via.placeholder.com/600x400',
+	},
+	{
+		id: 6,
+		name: 'iPhone 15 Pro Max',
+		description: 'Флагманский смартфон Apple с чипом A17 Bionic.',
+		price: 129990,
+		discountPrice: 119990,
+		stock: 25,
+		category: 'iphone',
+		color: 'black',
+		memory: '256gb',
+		compatibility: 'ios',
+		img: [
+			'https://via.placeholder.com/600x300',
+			'https://via.placeholder.com/600x500',
+			'https://via.placeholder.com/600x400',
+		],
+	},
+	{
+		id: 7,
+		name: 'MacBook Pro 14" M2',
+		description: 'Мощный ноутбук для профессионалов с чипом M2.',
+		price: 199990,
+		discountPrice: 169990,
+		stock: 10,
+		category: 'macbook',
+		color: 'silver',
+		memory: '1tb',
+		compatibility: 'macos',
+		img: 'https://via.placeholder.com/600x400',
+	},
 ]
 
 const useProductStore = create<ProductState>(set => ({
