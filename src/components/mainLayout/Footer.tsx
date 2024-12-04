@@ -11,7 +11,7 @@ import { Button } from '../ui/button'
 
 const Footer = () => {
 	return (
-		<footer className='bg-card text-card-foreground py-8  shadow border-t shadow-black/20 md:mx-[100px] md:px-4 md:rounded-t-[0.75rem] lg:px-12 mt-10'>
+		<footer className='bg-card text-card-foreground py-8  shadow border-t shadow-black/20 lg:mx-[100px] md:px-4 md:rounded-t-[0.75rem] lg:px-12 mt-10'>
 			<div className='container mx-auto flex flex-col items-center justify-between gap-8 sm:flex-row'>
 				{/* Логотип и копирайт */}
 				<div className='text-center sm:text-left'>

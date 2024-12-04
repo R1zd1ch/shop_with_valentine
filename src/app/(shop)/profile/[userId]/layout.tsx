@@ -12,7 +12,7 @@ const layout = async ({
 	const id = userId as string
 	return (
 		<div className='max-w-screen-2xl w-full mx-auto'>
-			<div className='md:mx-[100px] flex flex-col gap-6'>
+			<div className='lg:mx-[100px] flex flex-col gap-6'>
 				<Header userId={id}></Header>
 				<div className='grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1  gap-y-6'>
 					<InformationUser></InformationUser>

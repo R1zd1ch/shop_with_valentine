@@ -1,16 +1,16 @@
 import { create } from 'zustand'
 
-export interface Favorite {
+export interface Favourite {
 	id: number
 	userId: number
 	productId: number
 }
 
 interface FavouritesState {
-	favourites: Favorite[]
-	addFavourite: (favourite: Favorite) => void
+	favourites: Favourite[]
+	addFavourite: (favourite: Favourite) => void
 	removeFavourite: (favouriteId: number) => void
-	setFavourites: (favourites: Favorite[]) => void
+	setFavourites: (favourites: Favourite[]) => void
 	isFavourite: (favouriteId: number) => boolean
 	removeFavouriteByUserAndProduct: (userId: number, productId: number) => void
 	isFavouriteByUserAndProduct: (userId: number, productId: number) => boolean
@@ -19,7 +19,7 @@ interface FavouritesState {
 const useFavouritesStore = create<FavouritesState>((set, get) => ({
 	favourites: [],
 
-	addFavourite: (favourite: Favorite) => {
+	addFavourite: (favourite: Favourite) => {
 		set(state => ({
 			favourites: [...state.favourites, favourite],
 		}))
@@ -33,7 +33,7 @@ const useFavouritesStore = create<FavouritesState>((set, get) => ({
 		}))
 	},
 
-	setFavourites: (favourites: Favorite[]) => {
+	setFavourites: (favourites: Favourite[]) => {
 		set({ favourites })
 	},
 

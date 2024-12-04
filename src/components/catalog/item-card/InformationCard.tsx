@@ -105,7 +105,7 @@ const InformationCard = ({ product }: { product: Product }) => {
 	const isFavourite = isFavouriteByUserAndProduct(1, product.id)
 
 	return (
-		<Card className='flex flex-col flex-1 rounded-lg bg-card shadow-md border text-card-foreground shadow-black/20 w-full'>
+		<Card className='h-full flex flex-col flex-1 rounded-lg bg-card shadow-md border text-card-foreground shadow-black/20 w-full'>
 			<CardHeader className='p-10 pb-2 flex flex-row justify-between'>
 				<div>
 					<CardTitle className=' font-bold'>{product.name}</CardTitle>
@@ -126,7 +126,7 @@ const InformationCard = ({ product }: { product: Product }) => {
 					</div>
 				</div>
 			</CardHeader>
-			<CardContent className='px-8 mt-12 md:mt-10 flex flex-col gap-4'>
+			<CardContent className='px-8 mt-12 md:mt-10 flex flex-col gap-4 mb-auto'>
 				<div>
 					<p className='font-semibold '>Описание:</p>
 					<p className='text-sm text-muted-foreground line-clamp-3'>
@@ -152,8 +152,8 @@ const InformationCard = ({ product }: { product: Product }) => {
 					<ProductDetailsDialog product={product}></ProductDetailsDialog>
 				</div>
 			</CardContent>
-			<CardFooter>
-				<div className='flex w-2/3 items-center justify-center mt-4 gap-2  sm:flex mx-auto'>
+			<CardFooter className=''>
+				<div className='flex w-2/3 items-center justify-center mt-4 gap-2  sm:flex mx-auto '>
 					{isInCart() && (
 						<div className='rounded-lg w-full text-sm font-medium bg-primary text-primary-foreground flex items-center justify-center min-h-[36px]'>
 							<div className='flex items-center justify-between flex-row-reverse w-full px-4'>

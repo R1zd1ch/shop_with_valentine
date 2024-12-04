@@ -27,7 +27,7 @@ const QuestionsMain = ({
 	const product = getProductById(parseInt(productId))
 	const userId = 1
 	return (
-		<div className='md:mx-[100px] flex flex-col gap-6 items-center '>
+		<div className='lg:mx-[100px] flex flex-col gap-6 items-center '>
 			<div className='w-full max-w-screen-2xl flex flex-col gap-3 relative'>
 				<BackButton
 					className='absolute -top-5 -left-0 text-foreground '

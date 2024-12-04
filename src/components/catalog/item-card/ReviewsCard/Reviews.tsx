@@ -67,7 +67,7 @@ const Reviews = ({ productId }: { productId: number }) => {
 				<div className='flex flex-row justify-between'>
 					<CardTitle>Последние отзывы</CardTitle>
 					<div className='flex flex-row items-center gap-3'>
-						<p className='hidden lg:block text-primary cursor-pointer hover:underline hover:text-primary/70 transition duration-300'>
+						<p className='hidden md:block text-primary cursor-pointer hover:underline hover:text-primary/70 transition duration-300'>
 							<Link href={`/catalog/product/${productId}/reviews`}>
 								Все отзывы
 							</Link>
@@ -135,7 +135,7 @@ const Reviews = ({ productId }: { productId: number }) => {
 					)}
 				</div>
 			</CardContent>
-			<CardFooter className='flex flex-row justify-center sm:hidden'>
+			<CardFooter className='flex flex-row justify-center md:hidden'>
 				<p className='text-primary '>
 					<Link href={`/catalog/product/${productId}/reviews`}>Все отзывы</Link>
 				</p>

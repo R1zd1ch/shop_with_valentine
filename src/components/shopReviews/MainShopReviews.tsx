@@ -15,7 +15,7 @@ const MainShopReviews: FC = ({}) => {
 	}, [fetchReviews])
 
 	return (
-		<div className='md:mx-[100px] flex flex-col gap-6 items-center'>
+		<div className='lg:mx-[100px] flex flex-col gap-6 items-center'>
 			<div className='grid grid-cols-1 lg:grid-cols-5 gap-4 w-full max-w-screen-2xl'>
 				<div className='lg:col-span-5 order-none lg:order-none '>
 					<HeaderShopReviews></HeaderShopReviews>

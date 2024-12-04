@@ -22,33 +22,9 @@ const ProductGallery: FC<ProductGalleryProps> = ({ images }) => {
 	}
 
 	return (
-		<div className='flex flex-col-reverse items-center md:flex-row gap-4 h-full'>
-			{/* Thumbnail List */}
-			<Card className='flex sm:flex-col items-center justify-center gap-2 overflow-x-hidden sm:overflow-y-auto max-h-[500px] md:w-24  h-full w-full p-2 mt-10 shadow-md shadow-black/20'>
-				{images.map((src, index) => (
-					<div
-						onMouseEnter={() => setSelectedIndex(index)}
-						key={index}
-						onClick={() => setSelectedIndex(index)}
-						className={`grow-0 relative w-16 h-16 sm:w-16 sm:h-16 cursor-pointer overflow-hidden rounded-md border ${
-							selectedIndex === index
-								? 'border-primary border-4'
-								: 'border-secondary '
-						}`}
-					>
-						<Image
-							draggable={false}
-							src={src}
-							alt={`Thumbnail ${index + 1}`}
-							fill
-							className='object-cover'
-						/>
-					</div>
-				))}
-			</Card>
-
+		<div className=' flex flex-col lg:flex-row-reverse lg:items-start gap-4 lg:h-full'>
 			{/* Main Image Viewer */}
-			<Card className='relative shadow-md shadow-black/20 flex items-center justify-center w-full max-w-xl aspect-square overflow-hidden rounded-md '>
+			<Card className='lg:h-full  relative shadow-md shadow-black/20 flex items-center justify-center w-full max-w-[100%]  aspect-square overflow-hidden rounded-md'>
 				{images.map((src, index) => (
 					<div
 						key={index}
@@ -83,6 +59,30 @@ const ProductGallery: FC<ProductGalleryProps> = ({ images }) => {
 				>
 					<ChevronRight />
 				</Button>
+			</Card>
+
+			{/* Thumbnail List */}
+			<Card className='flex flex-row items-center justify-center gap-2 overflow-x-auto lg:overflow-y-auto lg:flex-col lg:w-24 h-full max-h-[150px] lg:max-h-full w-full p-2 mt-4 lg:mt-0 shadow-md shadow-black/20'>
+				{images.map((src, index) => (
+					<div
+						onMouseEnter={() => setSelectedIndex(index)}
+						key={index}
+						onClick={() => setSelectedIndex(index)}
+						className={`relative w-16 h-16 cursor-pointer overflow-hidden rounded-md border ${
+							selectedIndex === index
+								? 'border-primary border-4'
+								: 'border-secondary '
+						}`}
+					>
+						<Image
+							draggable={false}
+							src={src}
+							alt={`Thumbnail ${index + 1}`}
+							fill
+							className='object-cover'
+						/>
+					</div>
+				))}
 			</Card>
 		</div>
 	)

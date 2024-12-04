@@ -43,6 +43,13 @@ export default function PurchaseHistory() {
 					price: 7000,
 					status: 'В пути',
 				},
+				{
+					id: 4,
+					productName: 'Серебряный браслет',
+					date: '2024-10-15',
+					price: 7000,
+					status: 'В пути',
+				},
 			])
 			setLoading(false)
 		}, 2000)
@@ -51,11 +58,11 @@ export default function PurchaseHistory() {
 	}, [])
 
 	return (
-		<Card className='space-y-4 max-h-[501px] min-h-[501px]'>
+		<Card className='space-y-4  lg:max-h-[75vh] lg:min-h-[75vh]'>
 			<CardHeader className='text-2xl font-semibold'>
 				<CardTitle>История покупок</CardTitle>
 			</CardHeader>
-			<CardContent className='overflow-y-auto max-h-[410px] space-y-4'>
+			<CardContent className='overflow-y-auto max-h-[65vh] space-y-4'>
 				{loading ? (
 					<div className='space-y-4'>
 						<Skeleton className='h-24 w-full' />

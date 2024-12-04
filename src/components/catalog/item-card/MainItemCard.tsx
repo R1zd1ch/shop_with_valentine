@@ -5,7 +5,6 @@ import BackButton from '@/components/ui/BackButton'
 import useProductStore from '@/storage/UseProductStore'
 import { Product } from '@/storage/UseProductStore'
 import InformationCard from './InformationCard'
-
 import FooterCard from './FooterCard'
 
 const MainItemCard = ({ productId }: { productId: string }) => {
@@ -15,14 +14,15 @@ const MainItemCard = ({ productId }: { productId: string }) => {
 	)
 
 	return (
-		<div className='md:mx-[100px] flex flex-col gap-6 items-center '>
-			<div className='w-full max-w-screen-2xl flex flex-col md:grid lg:grid-cols-2 gap-6 relative'>
+		<div className='flex flex-col gap-6 items-center md:mx-4 lg:mx-8 xl:mx-[100px]'>
+			<div className='w-full max-w-screen-2xl flex flex-col gap-6 relative md:grid md:grid-cols-12'>
 				<BackButton
-					className='absolute top-0 left-0'
+					className='absolute top-0 left-0 '
 					variant='ghost'
 					pushUrl='/catalog'
 				></BackButton>
-				<div className='col-span-1'>
+
+				<div className='col-span-12 md:col-span-6'>
 					<ProductGallery
 						images={[
 							'https://via.placeholder.com/600x400',
@@ -30,13 +30,15 @@ const MainItemCard = ({ productId }: { productId: string }) => {
 							'https://via.placeholder.com/600x500',
 						]}
 						// images={product.img.split(',')}
-					></ProductGallery>
+					/>
 				</div>
-				<div className='flex flex-1'>
-					<InformationCard product={product}></InformationCard>
+
+				<div className='col-span-12 md:col-span-6'>
+					<InformationCard product={product} />
 				</div>
-				<div className='col-span-2'>
-					<FooterCard product={product}></FooterCard>
+
+				<div className='col-span-12 mt-6'>
+					<FooterCard product={product} />
 				</div>
 			</div>
 		</div>

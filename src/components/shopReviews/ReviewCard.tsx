@@ -26,7 +26,7 @@ const ReviewCard = ({ review }: { review: Review }) => {
 				<div className='w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden '>
 					<Image
 						src={'https://via.placeholder.com/150x150'}
-						alt={review.name}
+						alt={review.username}
 						width={96}
 						height={96}
 						className='object-cover'
@@ -36,7 +36,7 @@ const ReviewCard = ({ review }: { review: Review }) => {
 
 			<CardContent className='mb-auto'>
 				<h3 className='text-base sm:text-lg font-semibold text-foreground '>
-					{review.name}
+					{review.username}
 				</h3>
 
 				<p className='text-xs sm:text-sm text-muted-foreground italic '>
@@ -44,7 +44,7 @@ const ReviewCard = ({ review }: { review: Review }) => {
 				</p>
 				{textLength > 40 ? (
 					<div className='flex flex-row justify-center'>
-						<ShowAllFeedback name={review.name} text={review.text}>
+						<ShowAllFeedback name={review.username} text={review.text}>
 							<DialogTrigger>
 								<p className='text-primary text-xs   hover:text-primary/80 transition-colors duration-300 cursor-pointer'>
 									Показать весь отзыв

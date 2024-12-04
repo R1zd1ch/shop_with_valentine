@@ -26,7 +26,7 @@ const ResponsesHeader = ({ review }: { review: Review }) => {
 					</Avatar>
 					<CardTitle className='mt-4 text-lg font-bold'>
 						<p className='text-sm text-muted-foreground'>Отзыв от</p>
-						<p className='text-2xl'>{review.name}</p>
+						<p className='text-2xl'>{review.username}</p>
 					</CardTitle>
 				</div>
 				<div className='absolute top-4 right-4 lg:hidden flex justify-between items-center'>

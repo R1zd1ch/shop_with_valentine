@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
 import { useReviewsStore } from '@/storage/UseStoreReviews'
 import reviewSchema from '@/zod/editReviewShop'
+import { CardTitle } from '@/components/ui/card'
 
 type ReviewFormData = z.infer<typeof reviewSchema>
 
@@ -39,14 +39,14 @@ const FormEditReview = ({
 	const review = getReviewById(id)
 	useEffect(() => {
 		if (review) {
-			const { name, text } = review
-			setInitialData({ name, text })
-			reset({ name, text })
+			const { username, text } = review
+			setInitialData({ username, text })
+			reset({ username, text })
 		}
 	}, [])
 
 	const onSubmit = (data: ReviewFormData) => {
-		editReview(id, data.name, data.text)
+		editReview(id, data.username, data.text)
 
 		toast({
 			title: 'Успех',
@@ -62,21 +62,16 @@ const FormEditReview = ({
 			<h2 className='text-lg font-bold'>Редактировать отзыв</h2>
 
 			<form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-				<div>
-					<Label htmlFor='name'>Имя</Label>
-					<Input
-						id='name'
-						placeholder='Имя пользователя'
-						{...register('name')}
-						className='mt-1'
-						defaultValue={initialData?.name}
-					/>
-					{errors.name && (
-						<p className='text-red-500 text-sm mt-1'>{errors.name.message}</p>
-					)}
+				<div className='flex flex-row gap-2 items-center'>
+					<p className='text-sm text-muted-foreground'>Имя: </p>
+					<CardTitle className='text-lg font-normal'>
+						{initialData?.username}
+					</CardTitle>
 				</div>
 				<div>
-					<Label htmlFor='text'>Отзыв</Label>
+					<Label htmlFor='text' className='text-muted-foreground'>
+						Отзыв:
+					</Label>
 					<Textarea
 						id='text'
 						placeholder='Отредактируйте отзыв'

@@ -18,10 +18,10 @@ const ResponsesCard = ({ adminResponse }: { adminResponse: AdminResponse }) => {
 					<Avatar className='w-20 h-20'>
 						<AvatarImage
 							src='https://via.placeholder.com/150'
-							alt={adminResponse.name}
+							alt={adminResponse.username}
 						/>
 						<AvatarFallback>
-							{adminResponse.name
+							{adminResponse.username
 								.split(' ')
 								.map(word => word[0])
 								.join('')
@@ -29,7 +29,7 @@ const ResponsesCard = ({ adminResponse }: { adminResponse: AdminResponse }) => {
 						</AvatarFallback>
 					</Avatar>
 					<div className='flex flex-col items-start min-w-[100px]'>
-						<CardTitle>{adminResponse.name}</CardTitle>
+						<CardTitle>{adminResponse.username}</CardTitle>
 
 						<p className='text-sm text-muted-foreground'>
 							{format(new Date(adminResponse.createdAt), 'd MMMM yyyy', {

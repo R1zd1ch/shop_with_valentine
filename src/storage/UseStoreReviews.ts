@@ -4,7 +4,7 @@ import { create } from 'zustand'
 export type AdminResponse = {
 	id: number
 	userId: number
-	name: string
+	username: string
 	response: string
 	createdAt: string
 }
@@ -13,7 +13,7 @@ export type AdminResponse = {
 export type Review = {
 	id: number
 	userId: number
-	name: string
+	username: string
 	text: string
 	createdAt: string
 	adminResponse: AdminResponse[] | null
@@ -23,21 +23,21 @@ const MockReviews: Review[] = [
 	{
 		id: 1,
 		userId: 1,
-		name: 'John Doe',
+		username: 'John Doe',
 		text: 'This is another sample review. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus ratione repellendus neque fugit esse deleniti! Assumenda, laborum inventore nesciunt deleniti, perspiciatis et architecto minus amet pariatur, a ullam autem illo!',
 		createdAt: '2022-01-01T00:00:00.000Z',
 		adminResponse: [
 			{
 				id: 1,
 				userId: 1,
-				name: 'John Doe',
+				username: 'John Doe',
 				response: 'This is a sample response.',
 				createdAt: '2022-01-01T00:00:00.000Z',
 			},
 			{
 				id: 2,
 				userId: 1,
-				name: 'John Doe',
+				username: 'John Doe',
 				response: 'This is another sample response.',
 				createdAt: '2022-01-01T00:00:00.000Z',
 			},
@@ -46,7 +46,7 @@ const MockReviews: Review[] = [
 	{
 		id: 2,
 		userId: 2,
-		name: 'Jane Doe',
+		username: 'Jane Doe',
 		text: 'This is another sample review. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus ratione repellendus neque fugit esse deleniti! Assumenda, laborum inventore nesciunt deleniti, perspiciatis et architecto minus amet pariatur, a ullam autem illo!',
 		createdAt: '2022-01-02T00:00:00.000Z',
 		adminResponse: null,
@@ -54,7 +54,7 @@ const MockReviews: Review[] = [
 	{
 		id: 3,
 		userId: 3,
-		name: 'Bob Smith',
+		username: 'Bob Smith',
 		text: 'This is yet another sample review.',
 		createdAt: '2022-01-03T00:00:00.000Z',
 		adminResponse: null,
@@ -62,14 +62,14 @@ const MockReviews: Review[] = [
 	{
 		id: 4,
 		userId: 4,
-		name: 'Alice Johnson',
+		username: 'Alice Johnson',
 		text: 'This is the final sample review.',
 		createdAt: '2022-01-05T00:00:00.000Z',
 		adminResponse: [
 			{
 				id: 1,
 				userId: 1,
-				name: 'John Doe',
+				username: 'John Doe',
 				response: 'This is a sample response.',
 				createdAt: '2022-01-01T00:00:00.000Z',
 			},
@@ -78,7 +78,7 @@ const MockReviews: Review[] = [
 	{
 		id: 5,
 		userId: 5,
-		name: 'Charlie Brown',
+		username: 'Charlie Brown',
 		text: 'This is the last sample review.',
 		createdAt: '2022-01-05T00:00:00.000Z',
 		adminResponse: null,
@@ -90,9 +90,9 @@ type ReviewsState = {
 	reviews: Review[]
 	isLoading: boolean
 	error: string | null
-	addReview: (userId: number, name: string, text: string) => void
+	addReview: (userId: number, username: string, text: string) => void
 	deleteReview: (id: number) => void
-	editReview: (id: number, name: string, text: string) => void
+	editReview: (id: number, username: string, text: string) => void
 	getReviewById: (id: number) => Review | undefined
 	getReviews: () => Review[]
 	addAdminResponse: (id: number, response: AdminResponse) => void
@@ -112,14 +112,14 @@ const useReviewsStore = create<ReviewsState>((set, get) => ({
 	isLoading: false,
 	error: null,
 
-	addReview: (userId, name, text) =>
+	addReview: (userId, username, text) =>
 		set(state => ({
 			reviews: [
 				...state.reviews,
 				{
 					id: state.reviews.length + 1,
 					userId,
-					name,
+					username,
 					text,
 					createdAt: new Date().toISOString(),
 					adminResponse: null,
@@ -140,10 +140,10 @@ const useReviewsStore = create<ReviewsState>((set, get) => ({
 			reviews: state.reviews.filter(review => review.id !== id),
 		})),
 
-	editReview: (id, name, text) =>
+	editReview: (id, username, text) =>
 		set(state => ({
 			reviews: state.reviews.map(review =>
-				review.id === id ? { ...review, name, text } : review
+				review.id === id ? { ...review, username, text } : review
 			),
 		})),
 

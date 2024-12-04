@@ -2,13 +2,13 @@ import React from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
 import { useReviewsStore } from '@/storage/UseStoreReviews'
 import reviewSchema from '@/zod/createReviewShop'
+import { CardTitle } from '@/components/ui/card'
 
 type ReviewFormData = z.infer<typeof reviewSchema>
 
@@ -17,11 +17,10 @@ const FormCreateReview = ({
 }: {
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
-	const {
-		addReview,
-		//  fetchReviews
-	} = useReviewsStore()
+	const { addReview } = useReviewsStore()
 	const { toast } = useToast()
+
+	const userName = 'Алёшка'
 
 	const {
 		register,
@@ -33,7 +32,8 @@ const FormCreateReview = ({
 	})
 
 	const onSubmit = (data: ReviewFormData) => {
-		addReview(1, data.name, data.text)
+		console.log(1, userName, data.text)
+		addReview(1, userName, data.text)
 
 		toast({
 			title: 'Успех',
@@ -45,20 +45,14 @@ const FormCreateReview = ({
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-			<div>
-				<Label htmlFor='name'>Имя</Label>
-				<Input
-					id='name'
-					placeholder='Ваше имя'
-					{...register('name')}
-					className='mt-1'
-				/>
-				{errors.name && (
-					<p className='text-red-500 text-sm mt-1'>{errors.name.message}</p>
-				)}
+			<div className='flex flex-row gap-1 items-end'>
+				<p className='text-sm text-muted-foreground'>Имя:</p>
+				<CardTitle className='text-xl font-normal'>{userName}</CardTitle>
 			</div>
 			<div>
-				<Label htmlFor='text'>Отзыв</Label>
+				<Label htmlFor='text' className='text-muted-foreground'>
+					Отзыв:
+				</Label>
 				<Textarea
 					id='text'
 					placeholder='Напишите ваш отзыв'

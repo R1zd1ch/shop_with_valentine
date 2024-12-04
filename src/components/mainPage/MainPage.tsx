@@ -11,7 +11,7 @@ const MainPage = ({}) => {
 			<div className='flex flex-col gap-10'>
 				<MainBanner></MainBanner>
 				<div className='w-full max-w-screen-2xl mx-auto'>
-					<div className='md:mx-[100px] flex flex-col gap-10'>
+					<div className='lg:mx-[100px] flex flex-col gap-10'>
 						<MainCategory></MainCategory>
 						<MainPopularItems></MainPopularItems>
 						<MainStock></MainStock>

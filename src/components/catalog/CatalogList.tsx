@@ -157,7 +157,7 @@ const CatalogList: FC = () => {
 				>
 					<ChevronLeft />
 				</Button>
-				<span className='text-sm'>{`Страница ${currentPage} из ${totalPages}`}</span>
+				<span className='text-sm'>{`${currentPage} из ${totalPages}`}</span>
 				<Button
 					onClick={handleNextPage}
 					disabled={currentPage === totalPages}

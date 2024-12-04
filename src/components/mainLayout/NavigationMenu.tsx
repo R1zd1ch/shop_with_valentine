@@ -53,7 +53,7 @@ const NavigationMenuComponent = () => {
 		console.log('CartItems:', CartItems)
 	}, [CartItems])
 	return (
-		<header className='inset-x-0 top-0 z-50 shadow-lg shadow-black/20 md:mx-[100px] py-6 px-4 lg:px-12 sm:rounded-b-[0.75rem] border-b mb-4'>
+		<header className='inset-x-0 top-0 z-50 shadow-lg shadow-black/20 lg:mx-[100px] py-6 px-4 lg:px-12 sm:rounded-b-[0.75rem] border-b mb-4'>
 			<div className='container mx-auto flex items-center justify-between'>
 				{/* Логотип */}
 				<div>

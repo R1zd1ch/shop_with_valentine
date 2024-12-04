@@ -50,7 +50,7 @@ const MainCart = () => {
 
 	return (
 		<div className='w-full max-w-screen-2xl mx-auto'>
-			<div className='flex flex-col md:flex-row md:mx-[100px] gap-6'>
+			<div className='flex flex-col md:flex-row lg:mx-[100px] gap-6'>
 				{/* Левая часть: CartItems */}
 				<div className='flex-1'>
 					<CartItems
