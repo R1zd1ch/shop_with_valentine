@@ -2,16 +2,15 @@ import React, { useEffect } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
 import { useQuestionStore } from '@/storage/UseReviewsAndQuestionsStore' // Обновлено
+import { CardTitle } from '@/components/ui/card'
 
 // Схема валидации вопроса
 const createQuestionSchema = z.object({
-	username: z.string().min(1, 'Имя обязательно'),
 	question: z.string().min(10, 'Вопрос должен быть минимум 10 символов'),
 })
 
@@ -25,6 +24,7 @@ interface QuestionFormProps {
 const QuestionForm: React.FC<QuestionFormProps> = ({ onClose, productId }) => {
 	const { toast } = useToast()
 	const { addQuestion } = useQuestionStore()
+	const userName = 'Alyosha'
 
 	const {
 		register,
@@ -34,7 +34,6 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ onClose, productId }) => {
 	} = useForm<QuestionFormData>({
 		resolver: zodResolver(createQuestionSchema),
 		defaultValues: {
-			username: 'Аноним',
 			question: '',
 		},
 	})
@@ -44,7 +43,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ onClose, productId }) => {
 			id: Date.now(),
 			productId,
 			userId: 123,
-			username: data.username || 'Аноним',
+			username: userName,
 			question: data.question,
 			date: new Date().toISOString(),
 			answers: [],
@@ -73,15 +72,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ onClose, productId }) => {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-			<div>
-				<Label htmlFor='username'>Имя:</Label>
-				<Input
-					id='username'
-					placeholder='Ваше имя'
-					{...register('username')}
-					className='w-full'
-				/>
-			</div>
+			<CardTitle>{userName}</CardTitle>
 
 			<div>
 				<Label htmlFor='question'>Ваш вопрос:</Label>

@@ -18,7 +18,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, questionId }) => {
 		<Dialog open={isOpen} onOpenChange={onClose}>
 			<DialogContent className='overflow-y-auto max-h-screen'>
 				<DialogHeader>
-					<DialogTitle>Задайте вопрос</DialogTitle>
+					<DialogTitle>Ответьте на вопрос</DialogTitle>
 				</DialogHeader>
 				<ModalForm onClose={onClose} questionId={questionId} />
 			</DialogContent>

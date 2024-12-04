@@ -8,7 +8,7 @@ export interface Review {
 	rating: number
 	comment: string
 	date: string
-	dignity?: string
+	dignities?: string
 	flaws?: string
 }
 
@@ -40,7 +40,7 @@ const mockReviews: Review[] = [
 		comment:
 			'Great Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat exercitationem nam excepturi aliquid. Eveniet cupiditate nostrum, ab ipsa illum harum repellendus impedit tempore, excepturi qui voluptatem alias placeat provident sunt? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat exercitationem nam excepturi aliquid. Eveniet cupiditate nostrum, ab ipsa illum harum repellendus impedit tempore, excepturi qui voluptatem alias placeat provident sunt? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat exercitationem nam excepturi aliquid. Eveniet cupiditate nostrum, ab ipsa illum harum repellendus impedit tempore, excepturi qui voluptatem alias placeat provident sunt?',
 		date: '2022-01-01',
-		dignity:
+		dignities:
 			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat exercitationem nam excepturi aliquid. Eveniet cupiditate nostrum, ab ipsa illum harum repellendus impedit tempore, excepturi qui voluptatem alias placeat provident sunt?',
 		flaws:
 			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat exercitationem nam excepturi aliquid. Eveniet cupiditate nostrum, ab ipsa illum harum repellendus impedit tempore, excepturi qui voluptatem alias placeat provident sunt?',

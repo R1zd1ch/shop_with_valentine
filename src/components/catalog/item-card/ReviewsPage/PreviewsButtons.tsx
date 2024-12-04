@@ -3,8 +3,9 @@ import { Card } from '@/components/ui/card'
 import { Product } from '@/storage/UseProductStore'
 import useCartStore from '@/storage/UseCartStore'
 import useFavouritesStore from '@/storage/UseFavourites'
-import { Heart, Minus, Plus } from 'lucide-react'
+import { Minus, Plus } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
+import { FaHeart, FaRegHeart } from 'react-icons/fa'
 
 const PreviewsButtons = ({
 	userId,
@@ -102,20 +103,19 @@ const PreviewsButtons = ({
 
 	return (
 		<Card className='w-full h-full flex items-center justify-center min-h-[100px]'>
-			<div className='flex flex-row gap-2'>
+			<div className='flex gap-2 flex-row-reverse'>
 				{/* Кнопка добавления/удаления из избранного */}
 				<Button
 					onClick={
 						isFavourite ? handleRemoveFromFavourite : handleAddToFavourite
 					}
-					className={`py-2 text-sm font-medium min-w-[142px] ${
-						isFavourite
-							? 'bg-destructive hover:bg-destructive/80'
-							: 'bg-primary text-primary-foreground'
+					className={`py-2 text-sm font-medium  ${
+						isFavourite ? '' : ' text-primary-foreground'
 					}`}
 				>
-					<Heart />
-					{isFavourite ? ' Убрать' : ' В избранное'}
+					<div className='flex items-center gap-2 justify-between w-full'>
+						{isFavourite ? <FaHeart></FaHeart> : <FaRegHeart></FaRegHeart>}
+					</div>
 				</Button>
 
 				{/* Кнопка добавления в корзину */}

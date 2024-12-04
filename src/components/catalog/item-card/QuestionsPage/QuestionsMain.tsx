@@ -11,6 +11,7 @@ const QuestionsMain = ({ productId }: { productId: string }) => {
 	const { getProductById } = useProductStore()
 	const parsedId = parseInt(productId)
 	const product = getProductById(parsedId)
+	const userId = 1
 	return (
 		<div className='md:mx-[100px] flex flex-col gap-6 items-center '>
 			<div className='w-full max-w-screen-2xl flex flex-col gap-3 relative'>
@@ -26,7 +27,10 @@ const QuestionsMain = ({ productId }: { productId: string }) => {
 						<PreviewsHeader product={product}></PreviewsHeader>
 					</div>
 					<div className='w-full lg:w-1/4 '>
-						<PreviewsButtons></PreviewsButtons>
+						<PreviewsButtons
+							product={product}
+							userId={userId}
+						></PreviewsButtons>
 					</div>
 				</div>
 

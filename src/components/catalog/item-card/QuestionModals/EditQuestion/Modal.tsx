@@ -17,7 +17,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
 		<Dialog open={isOpen} onOpenChange={onClose}>
 			<DialogContent className='max-h-screen overflow-y-auto'>
 				<DialogHeader>
-					<DialogTitle>Редактирование отзыва</DialogTitle>
+					<DialogTitle>Редактирование вопроса</DialogTitle>
 				</DialogHeader>
 				{children}
 			</DialogContent>

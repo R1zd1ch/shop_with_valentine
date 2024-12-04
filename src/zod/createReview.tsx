@@ -1,9 +1,8 @@
 import { z } from 'zod'
 
 const createReviewSchema = z.object({
-	name: z.string().optional(),
-	email: z.string().optional(),
-	dignity: z.string().optional(),
+	username: z.string().optional(),
+	dignities: z.string().optional(),
 	flaws: z.string().optional(),
 	rating: z
 		.number()

@@ -2,13 +2,13 @@ import React, { useEffect } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import updateAnswerSchema from '@/zod/updateAnswer'
 import { useToast } from '@/hooks/use-toast'
 import { useQuestionStore } from '@/storage/UseReviewsAndQuestionsStore'
+import { CardTitle } from '@/components/ui/card'
 
 type UpdateAnswerFormData = z.infer<typeof updateAnswerSchema>
 
@@ -26,6 +26,8 @@ const EditAnswerModal: React.FC<EditAnswerModalProps> = ({
 	const answers = getAnswersByQuestionId(answerId)
 	const answer = answers.find(a => a.id === answerId)
 
+	const userName = 'Alyosha'
+
 	const {
 		register,
 		handleSubmit,
@@ -33,7 +35,6 @@ const EditAnswerModal: React.FC<EditAnswerModalProps> = ({
 	} = useForm<UpdateAnswerFormData>({
 		resolver: zodResolver(updateAnswerSchema),
 		defaultValues: {
-			username: answer?.username || '',
 			answer: answer?.answer || '',
 		},
 	})
@@ -43,7 +44,7 @@ const EditAnswerModal: React.FC<EditAnswerModalProps> = ({
 
 		editAnswer(answerId, {
 			...answer,
-			username: data.username || answer.username,
+			username: answer.username || userName,
 			answer: data.answer || answer.answer,
 		})
 
@@ -70,19 +71,7 @@ const EditAnswerModal: React.FC<EditAnswerModalProps> = ({
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-			<div className='flex items-center justify-between'>
-				<div className='w-full'>
-					<Label htmlFor='username'>Имя:</Label>
-					<Input
-						id='username'
-						placeholder='Ваше имя (необязательно)'
-						{...register('username')}
-					/>
-					{errors.username && (
-						<p className='text-sm text-red-600'>{errors.username.message}</p>
-					)}
-				</div>
-			</div>
+			<CardTitle>{answer.username || userName}</CardTitle>
 
 			<div>
 				<Label htmlFor='answer'>Ответ:</Label>

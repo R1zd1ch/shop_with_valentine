@@ -34,13 +34,13 @@ const ReviewsCard = ({ review }: { review: Review }) => {
 			</CardHeader>
 			<CardContent className='max-w-full'>
 				<div className='lg:pl-12 lg:pr-36 '>
-					{review.dignity || review.flaws ? (
+					{review.dignities || review.flaws ? (
 						<div className='flex flex-col gap-2'>
-							{review.dignity && (
+							{review.dignities && (
 								<div className='text-sm flex flex-col gap-1 break-words max-w-full'>
 									<p className='font-bold'>Достоинства:</p>
 									<p className='text-card-foreground break-words max-w-full'>
-										{review.dignity}
+										{review.dignities}
 									</p>
 								</div>
 							)}

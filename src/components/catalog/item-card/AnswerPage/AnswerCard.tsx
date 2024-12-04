@@ -23,7 +23,7 @@ const AnswerCard = ({ answer, userId }: { answer: Answer; userId: number }) => {
 							locale: ru,
 						})}
 					</p>
-					<p className='mt-1 text-base'>{answer.answer}</p>
+					<p className='mt-1 '>{answer.answer}</p>
 				</div>
 			</div>
 			{userId === answer.userId && (

@@ -2,7 +2,8 @@ import { Card, CardContent, CardFooter, CardHeader } from '../ui/card'
 import { Button } from '../ui/button'
 import Image from 'next/image'
 import useCartStore from '@/storage/UseCartStore'
-import { Heart, Minus, Plus } from 'lucide-react'
+import { Minus, Plus } from 'lucide-react'
+import { FaHeart, FaRegHeart } from 'react-icons/fa'
 import { useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
 import CatalogCarousel from './CatalogCarousel'
@@ -117,17 +118,19 @@ const ProductCard = ({ product }: { product: Product }) => {
 					onClick={e => e.stopPropagation() /* Останавливаем всплытие */}
 				>
 					<Button
-						size={'sm'}
-						variant={'outline'}
+						size={'default'}
+						variant={'link'}
 						disabled={isOutOfStock}
 						onClick={
 							isFavourite ? handleRemoveFromFavourite : handleAddToFavourite
 						}
-						className={`absolute right-2 top-2 z-50 py-2 rounded-lg text-sm font-medium opacity-50 ${
-							isFavourite ? ' bg-primary hover:bg-primary/80 opacity-100' : ''
+						className={`absolute right-2 top-2 z-50 py-2 rounded-lg text-sm font-medium text-muted  ${
+							isFavourite
+								? ' opacity-100 text-primary hover:text-primary/80'
+								: 'hover:text-primary/80'
 						}`}
 					>
-						<Heart></Heart>
+						<div>{isFavourite ? <FaHeart /> : <FaRegHeart />}</div>
 					</Button>
 					{typeof product.img === 'string' ? (
 						<Image

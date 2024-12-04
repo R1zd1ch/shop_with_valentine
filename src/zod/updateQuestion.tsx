@@ -1,11 +1,6 @@
 import { z } from 'zod'
 
 const updateQuestionSchema = z.object({
-	username: z
-		.string()
-		.max(50, 'Имя не должно превышать 50 символов')
-		.transform(value => value.trim())
-		.optional(),
 	question: z
 		.string()
 		.min(1, 'Текст вопроса обязателен')

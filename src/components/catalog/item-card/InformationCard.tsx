@@ -10,10 +10,11 @@ import {
 
 import { useToast } from '@/hooks/use-toast'
 import useCartStore from '@/storage/UseCartStore'
-import { Heart, Minus, Plus } from 'lucide-react'
+import { Minus, Plus } from 'lucide-react'
 import ProductDetailsDialog from './ProductDetailsDialog'
 import { Product } from '@/storage/UseProductStore'
 import useFavouritesStore from '@/storage/UseFavourites'
+import { FaHeart, FaRegHeart } from 'react-icons/fa'
 
 const InformationCard = ({ product }: { product: Product }) => {
 	const { addItem, setCurrentItem, CartItems, updateItem, removeItem } =
@@ -152,7 +153,7 @@ const InformationCard = ({ product }: { product: Product }) => {
 				</div>
 			</CardContent>
 			<CardFooter>
-				<div className='flex w-2/3 items-center justify-center mt-4 gap-4  sm:flex mx-auto'>
+				<div className='flex w-2/3 items-center justify-center mt-4 gap-2  sm:flex mx-auto'>
 					{isInCart() && (
 						<div className='rounded-lg w-full text-sm font-medium bg-primary text-primary-foreground flex items-center justify-center min-h-[36px]'>
 							<div className='flex items-center justify-between flex-row-reverse w-full px-4'>
@@ -188,16 +189,17 @@ const InformationCard = ({ product }: { product: Product }) => {
 					)}
 
 					<Button
+						size={'default'}
+						variant={'default'}
 						disabled={isOutOfStock}
-						variant={'outline'}
 						onClick={
 							isFavourite ? handleRemoveFromFavourite : handleAddToFavourite
 						}
-						className={`py-2 rounded-lg text-sm font-medium ${
-							isFavourite ? ' bg-primary ' : ' '
+						className={`right-2 top-2 z-50 py-2 rounded-lg text-sm font-medium   ${
+							isFavourite ? '' : ''
 						}`}
 					>
-						<Heart></Heart>
+						<div>{isFavourite ? <FaHeart /> : <FaRegHeart />}</div>
 					</Button>
 				</div>
 			</CardFooter>

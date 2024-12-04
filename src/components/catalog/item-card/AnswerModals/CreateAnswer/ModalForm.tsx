@@ -3,13 +3,13 @@ import React, { useEffect } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
 import { useQuestionStore } from '@/storage/UseReviewsAndQuestionsStore'
 import createAnswerSchema from '@/zod/createAnswer'
+import { CardTitle } from '@/components/ui/card'
 
 type AnswerFormData = z.infer<typeof createAnswerSchema>
 
@@ -21,6 +21,7 @@ interface AnswerFormProps {
 const AnswerForm: React.FC<AnswerFormProps> = ({ onClose, questionId }) => {
 	const { toast } = useToast()
 	const { answerQuestion } = useQuestionStore()
+	const userName = 'Alyosha'
 
 	const {
 		register,
@@ -30,7 +31,6 @@ const AnswerForm: React.FC<AnswerFormProps> = ({ onClose, questionId }) => {
 	} = useForm<AnswerFormData>({
 		resolver: zodResolver(createAnswerSchema),
 		defaultValues: {
-			username: 'Аноним',
 			answer: '',
 		},
 	})
@@ -39,7 +39,7 @@ const AnswerForm: React.FC<AnswerFormProps> = ({ onClose, questionId }) => {
 		const newAnswer = {
 			id: Date.now(),
 			userId: Date.now(),
-			username: data.username || 'Аноним',
+			username: userName,
 			answer: data.answer,
 			date: new Date().toISOString(),
 		}
@@ -75,15 +75,7 @@ const AnswerForm: React.FC<AnswerFormProps> = ({ onClose, questionId }) => {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-			<div>
-				<Label htmlFor='username'>Имя:</Label>
-				<Input
-					id='username'
-					placeholder='Ваше имя'
-					{...register('username')}
-					className='w-full'
-				/>
-			</div>
+			<CardTitle>{userName}</CardTitle>
 
 			<div>
 				<Label htmlFor='answer'>Ваш ответ:</Label>

@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
@@ -11,6 +10,7 @@ import { useToast } from '@/hooks/use-toast'
 import { useReviewStore } from '@/storage/UseReviewsAndQuestionsStore'
 import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
+import { CardTitle } from '@/components/ui/card'
 
 type ReviewFormData = z.infer<typeof createReviewSchema>
 
@@ -22,12 +22,7 @@ interface ModalFormProps {
 const ModalForm: React.FC<ModalFormProps> = ({ onClose, productId }) => {
 	const { toast } = useToast()
 	const { addReview } = useReviewStore()
-	const [isEditing, setIsEditing] = useState<{ name: boolean; email: boolean }>(
-		{
-			name: false,
-			email: false,
-		}
-	)
+	const userName = 'Alyosha'
 
 	const {
 		register,
@@ -39,12 +34,10 @@ const ModalForm: React.FC<ModalFormProps> = ({ onClose, productId }) => {
 	} = useForm<ReviewFormData>({
 		resolver: zodResolver(createReviewSchema),
 		defaultValues: {
-			name: 'Алёшка',
-			email: 'alyoha@govno.ru',
-			dignity: '',
+			dignities: '',
 			flaws: '',
 			review: '',
-			rating: 5, // Начальный рейтинг
+			rating: 5,
 		},
 	})
 
@@ -53,11 +46,11 @@ const ModalForm: React.FC<ModalFormProps> = ({ onClose, productId }) => {
 			id: Date.now(),
 			productId: productId,
 			userId: 123,
-			username: data.name || 'Аноним',
+			username: data.username || userName,
 			rating: data.rating, // Используем рейтинг из формы
 			comment: data.review,
 			date: new Date().toISOString(),
-			dignity: data.dignity,
+			dignities: data.dignities,
 			flaws: data.flaws,
 		}
 
@@ -81,64 +74,11 @@ const ModalForm: React.FC<ModalFormProps> = ({ onClose, productId }) => {
 		}
 	}, [errors, toast])
 
-	const name = watch('name')
-	// const email = watch('email')
-	const rating = watch('rating') // Следим за изменением рейтинга
+	const rating = watch('rating')
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className=''>
-			<div className='flex items-center justify-between'>
-				<div>
-					<Label htmlFor='name'>Имя:</Label>
-					{isEditing.name ? (
-						<Input
-							id='name'
-							placeholder='Ваше имя (необязательно)'
-							{...register('name')}
-							autoFocus
-							onBlur={() => setIsEditing(prev => ({ ...prev, name: false }))}
-						/>
-					) : (
-						<p className='text-base'>
-							{name}{' '}
-							<button
-								type='button'
-								className='text-sm text-primary underline ml-2'
-								onClick={() => setIsEditing(prev => ({ ...prev, name: true }))}
-							>
-								Редактировать
-							</button>
-						</p>
-					)}
-				</div>
-			</div>
-
-			{/* <div className='flex items-center justify-between'>
-				<div>
-					<Label htmlFor='email'>Email:</Label>
-					{isEditing.email ? (
-						<Input
-							id='email'
-							placeholder='Ваш email (необязательно)'
-							{...register('email')}
-							autoFocus
-							onBlur={() => setIsEditing(prev => ({ ...prev, email: false }))}
-						/>
-					) : (
-						<p className='text-base'>
-							{email}{' '}
-							<button
-								type='button'
-								className='text-sm text-primary underline ml-2'
-								onClick={() => setIsEditing(prev => ({ ...prev, email: true }))}
-							>
-								Редактировать
-							</button>
-						</p>
-					)}
-				</div>
-			</div> */}
-
+		<form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
+			<CardTitle>{userName}</CardTitle>
 			<div>
 				<Label>Оценка:</Label>
 				<Rating
@@ -149,11 +89,11 @@ const ModalForm: React.FC<ModalFormProps> = ({ onClose, productId }) => {
 			</div>
 
 			<div>
-				<Label htmlFor='dignity'>Достоинства:</Label>
+				<Label htmlFor='dignities'>Достоинства:</Label>
 				<Textarea
-					id='dignity'
+					id='dignities'
 					placeholder='Напишите достоинства продукта (необязательно)'
-					{...register('dignity')}
+					{...register('dignities')}
 					className='w-full flex-1 resize-none border-primary'
 				/>
 			</div>

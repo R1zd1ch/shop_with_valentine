@@ -3,11 +3,12 @@
 import { FC } from 'react'
 import { Card } from '../../ui/card'
 import { Button } from '../../ui/button'
-import { Heart, Minus, Plus, Trash } from 'lucide-react'
+import { Minus, Plus, Trash } from 'lucide-react'
 import Image from 'next/image'
 import { Product } from '@/storage/UseProductStore'
 import useFavouritesStore from '@/storage/UseFavourites'
 import { useToast } from '@/hooks/use-toast'
+import { FaHeart, FaRegHeart } from 'react-icons/fa'
 
 interface CartItemCardProps {
 	userId: number
@@ -60,6 +61,7 @@ const CartItemCard: FC<CartItemCardProps> = ({
 	}
 
 	const isFavourite = isFavouriteByUserAndProduct(userId, product.id)
+	const isOutOfStock = product.stock === 0
 
 	return (
 		<Card className='flex flex-col gap-4 p-4 shadow-sm md:flex-col lg:flex-row h-full w-full'>
@@ -131,15 +133,19 @@ const CartItemCard: FC<CartItemCardProps> = ({
 
 				<div className='flex gap-2 md:gap-2 lg:gap-6 items-center'>
 					<Button
-						size='sm'
-						variant='secondary'
+						size={'sm'}
+						variant={'secondary'}
+						disabled={isOutOfStock}
 						onClick={
 							isFavourite ? handleRemoveFromFavourite : handleAddToFavourite
 						}
-						className={`${isFavourite ? 'bg-primary ' : ''}`}
-						aria-label='Удалить из корзины'
+						className={`right-2 top-2 z-50 py-2 rounded-lg text-sm font-medium   ${
+							isFavourite
+								? ' opacity-100 text-primary hover:text-primary/80'
+								: 'hover:text-primary/80'
+						}`}
 					>
-						<Heart />
+						<div>{isFavourite ? <FaHeart /> : <FaRegHeart />}</div>
 					</Button>
 					<Button
 						size='sm'

@@ -45,7 +45,7 @@ const QuestionsCard = ({ question }: { question: Question }) => {
 			</CardHeader>
 
 			<CardContent className='max-w-full'>
-				<p className='text-base text-primary-foreground'>{question.question}</p>
+				<p className='text-base '>{question.question}</p>
 				{LastAnswer && (
 					<div className='mt-4'>
 						<p className='text-sm text-muted-foreground'>Недавний ответ:</p>
