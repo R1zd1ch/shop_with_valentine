@@ -37,6 +37,7 @@ const FavouritesUser = ({ userId }: { userId: number }) => {
 			<CardContent className='flex flex-col gap-6 px-0'>
 				{hasFavourites ? (
 					<FavouritesList
+						userId={userId}
 						handleRemoveFromFavourite={handleRemoveFromFavourite}
 						favourites={favouritesItems}
 					/>

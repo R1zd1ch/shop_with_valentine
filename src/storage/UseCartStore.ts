@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-
 export interface CartItem {
 	id: number
 	userId: number

@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 import { LiaSadTear } from 'react-icons/lia'
 
 const FavouritesEmptyState = () => (
@@ -9,7 +10,7 @@ const FavouritesEmptyState = () => (
 			быстро их находить.
 		</p>
 		<Button variant='default' size='lg' className='mt-4'>
-			Перейти в каталог
+			<Link href={'/catalog'}>Перейти в каталог</Link>
 		</Button>
 	</div>
 )

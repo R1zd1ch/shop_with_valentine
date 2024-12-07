@@ -9,6 +9,10 @@ import { useRouter } from 'next/navigation'
 import CatalogCarousel from './CatalogCarousel'
 import { Product } from '@/storage/UseProductStore'
 import useFavouritesStore from '@/storage/UseFavourites'
+import Link from 'next/link'
+import { ToastAction } from '../ui/toast'
+
+const DURATION_TIME = 2000
 
 const ProductCard = ({ product }: { product: Product }) => {
 	const router = useRouter()
@@ -38,6 +42,7 @@ const ProductCard = ({ product }: { product: Product }) => {
 		toast({
 			title: 'Товар добавлен в корзину ✅',
 			description: `Товар: ${product.name}`,
+			duration: DURATION_TIME,
 		})
 	}
 
@@ -70,6 +75,7 @@ const ProductCard = ({ product }: { product: Product }) => {
 				toast({
 					title: 'Товар удален из корзины ❌',
 					description: `Товар: ${product.name}`,
+					duration: DURATION_TIME,
 				})
 			}
 		}
@@ -88,11 +94,19 @@ const ProductCard = ({ product }: { product: Product }) => {
 		addFavourite({
 			id: Date.now(),
 			productId: product.id,
-			userId: 1,
+			userId: userId,
 		})
 		toast({
 			title: 'Товар добавлен в избранное ✅',
-			description: `Товар: ${product.name}`,
+			description: (
+				<Link href={`/profile/${userId}/favorites`}>Товар: {product.name}</Link>
+			),
+			action: (
+				<ToastAction altText='Перейти в избранное'>
+					<Link href={`/profile/${userId}/favorites`}>В избранное</Link>
+				</ToastAction>
+			),
+			duration: DURATION_TIME,
 		})
 	}
 
@@ -101,6 +115,7 @@ const ProductCard = ({ product }: { product: Product }) => {
 		toast({
 			title: 'Товар удален из избранного ❌',
 			description: `Товар: ${product.name}`,
+			duration: DURATION_TIME,
 		})
 	}
 
