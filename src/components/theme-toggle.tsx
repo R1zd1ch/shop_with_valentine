@@ -1,31 +1,25 @@
 'use client'
 
 import * as React from 'react'
-import { Moon, Sun, Palette } from 'lucide-react' // Импортируем иконку Palette
+import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
+import { Skeleton } from './ui/skeleton'
 
 export function ModeToggle() {
 	const { theme, setTheme, resolvedTheme } = useTheme()
 	const [mounted, setMounted] = React.useState(false)
 
 	React.useEffect(() => {
-		setMounted(true)
+		setTimeout(() => {
+			setMounted(true)
+		}, 500)
 	}, [])
 
-	// Пока компонент не смонтирован, показываем иконку Palette
 	if (!mounted) {
-		return (
-			<Button
-				variant='ghost'
-				className='hover:text-primary transition-colors duration-300'
-			>
-				<Palette width={40} height={40} /> {/* Иконка Palette */}
-			</Button>
-		)
+		return <Skeleton className='w-12 h-10'></Skeleton>
 	}
 
-	// После монтирования отображаем иконки по теме
 	return (
 		<Button
 			variant='ghost'

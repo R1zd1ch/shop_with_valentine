@@ -28,11 +28,13 @@ const Header = ({
 			<div className='flex flex-row gap-2 items-center'>
 				<Button
 					variant={toggledTab === 'reviews' ? 'default' : 'secondary'}
+					size={'default'}
 					onClick={() => setToggledTab('reviews')}
 				>
 					Отзывы
 				</Button>
 				<Button
+					size={'default'}
 					variant={toggledTab === 'questions' ? 'default' : 'secondary'}
 					onClick={() => setToggledTab('questions')}
 				>
