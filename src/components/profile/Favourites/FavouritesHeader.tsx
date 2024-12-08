@@ -2,7 +2,7 @@ import { CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { LiaHeart } from 'react-icons/lia'
 
 const FavouritesHeader = () => (
-	<CardHeader>
+	<CardHeader className='min-h-[100px]'>
 		<CardTitle className='flex items-center gap-2 text-primary'>
 			Избранное
 			<LiaHeart className='w-6 h-6 text-red-500' />

@@ -1,5 +1,8 @@
 import FavouritesUser from '@/components/profile/Favourites/FavouritesUser'
+import PaymentInfoUser from '@/components/profile/PaymentInfo/PaymentInfoUser'
 import PurchaseHistory from '@/components/profile/PurchaseHistory/PurchaseHistory'
+import ReviewsAndQuestionsUser from '@/components/profile/ReviewsAndQuestions/ReviewsAndQuestionsUser'
+import SettingsUser from '@/components/profile/Settings/SettingsUser'
 
 type PageParams = Promise<{ tab: string; userId: string }>
 
@@ -19,15 +22,15 @@ const Page = async ({ params }: { params: PageParams }) => {
 			break
 
 		case 'settings':
-			content = <div>Settings</div>
+			content = <SettingsUser userId={parsedUserId}></SettingsUser>
 			break
 
 		case 'payment-info':
-			content = <div>Payment info</div>
+			content = <PaymentInfoUser></PaymentInfoUser>
 			break
 
 		case 'reviews':
-			content = <div>Reviews</div>
+			content = <ReviewsAndQuestionsUser></ReviewsAndQuestionsUser>
 			break
 
 		default:
