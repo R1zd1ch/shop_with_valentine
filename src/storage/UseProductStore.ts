@@ -12,7 +12,7 @@ export interface Product {
 	memory: string
 	compatibility: string
 	img: string[] | string
-	orderCount?: number // Добавлено поле orderCount
+	orderCount?: number
 }
 
 interface ProductState {
@@ -144,12 +144,21 @@ const useProductStore = create<ProductState>(set => ({
 	isLoading: false,
 	error: null,
 
-	fetchProducts: () => {
+	fetchProducts: async () => {
 		set({ isLoading: true, error: null })
-		setTimeout(() => {
-			// Заглушка данных
-			set({ products: MOCK_PRODUCTS, isLoading: false })
-		}, 1000) // Эмуляция задержки
+		// setTimeout(() => {
+		// 	set({ products: MOCK_PRODUCTS, isLoading: false })
+		// }, 1000)
+		try {
+			const res = await fetch('/api/products/getAllProducts')
+			const data = await res.json()
+			setTimeout(() => {
+				set({ products: data, isLoading: false })
+			}, 1000)
+			console.log(data)
+		} catch (error) {
+			set({ error: (error as Error).message, isLoading: false })
+		}
 	},
 
 	getProductById: (id: number): Product => {
