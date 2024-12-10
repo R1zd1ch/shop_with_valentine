@@ -1,5 +1,5 @@
-import Footer from '@/components/mainLayout/Footer'
-import NavigationMenu from '@/components/mainLayout/NavigationMenu'
+import Footer from '@/components/shop/mainLayout/Footer'
+import NavigationMenu from '@/components/shop/mainLayout/NavigationMenu'
 import { Toaster } from '@/components/ui/toaster'
 
 const layout = ({

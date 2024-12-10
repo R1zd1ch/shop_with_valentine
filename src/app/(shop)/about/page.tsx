@@ -1,4 +1,4 @@
-import MainAboutUs from '@/components/aboutUs/MainAboutUs'
+import MainAboutUs from '@/components/shop/aboutUs/MainAboutUs'
 
 const page = ({}) => {
 	return <MainAboutUs></MainAboutUs>

@@ -1,4 +1,4 @@
-import MainItemCard from '@/components/catalog/item-card/MainItemCard'
+import MainItemCard from '@/components/shop/catalog/item-card/MainItemCard'
 
 type PageParams = Promise<{ itemId: string }>
 

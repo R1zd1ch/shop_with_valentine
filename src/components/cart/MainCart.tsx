@@ -12,7 +12,7 @@ const itemsData = [
 		name: 'AirPods Pro (2-го поколения)',
 		price: 24990,
 		quantity: 1,
-		discountPrice: 21990,
+		oldPrice: 21990,
 	},
 	{ id: 5, name: 'iPad Pro 11" M2', price: 99990, quantity: 1 },
 ]
@@ -66,7 +66,7 @@ const MainCart = () => {
 					<CartRightSide
 						cartItems={items.map(item => ({
 							price: item.price,
-							discountPrice: item.discountPrice,
+							oldPrice: item.oldPrice,
 							quantity: item.quantity,
 						}))}
 					/>

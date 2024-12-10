@@ -1,4 +1,4 @@
-import MainAnswerPage from '@/components/catalog/item-card/AnswerPage/MainAnswerPage'
+import MainAnswerPage from '@/components/shop/catalog/item-card/AnswerPage/MainAnswerPage'
 
 const Answers = async ({
 	params,

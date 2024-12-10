@@ -1,5 +1,5 @@
-import Header from '@/components/profile/Header'
-import InformationUser from '@/components/profile/InformationUser'
+import Header from '@/components/shop/profile/Header'
+import InformationUser from '@/components/shop/profile/InformationUser'
 
 const layout = async ({
 	children,

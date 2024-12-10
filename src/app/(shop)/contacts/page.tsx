@@ -1,4 +1,4 @@
-import MainContacts from '@/components/contacts/MainContacts'
+import MainContacts from '@/components/shop/contacts/MainContacts'
 
 const page = ({}) => {
 	return (

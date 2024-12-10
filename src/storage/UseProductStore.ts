@@ -5,8 +5,8 @@ export interface Product {
 	name: string
 	description: string
 	price: number
-	discountPrice?: number
-	stock: number
+	oldPrice?: number
+	stockQuantity: number
 	category: string
 	color: string
 	memory: string
@@ -30,7 +30,7 @@ const MOCK_PRODUCTS: Product[] = [
 		name: 'iPhone 15 Pro Max',
 		description: 'Флагманский смартфон Apple с чипом A17 Bionic.',
 		price: 129990,
-		stock: 25,
+		stockQuantity: 25,
 		category: 'iphone',
 		color: 'black',
 		memory: '256gb',
@@ -47,7 +47,7 @@ const MOCK_PRODUCTS: Product[] = [
 		name: 'MacBook Pro 14" M2',
 		description: 'Мощный ноутбук для профессионалов с чипом M2.',
 		price: 199990,
-		stock: 10,
+		stockQuantity: 10,
 		category: 'macbook',
 		color: 'silver',
 		memory: '1tb',
@@ -59,7 +59,7 @@ const MOCK_PRODUCTS: Product[] = [
 		name: 'Apple Watch Series 9',
 		description: 'Продвинутые умные часы с функциями здоровья и фитнеса.',
 		price: 45990,
-		stock: 50,
+		stockQuantity: 50,
 		category: 'watch',
 		color: 'gold',
 		memory: '64gb',
@@ -83,8 +83,8 @@ const MOCK_PRODUCTS: Product[] = [
 		name: 'AirPods Pro',
 		description: 'Беспроводные наушники с высоким качеством звука.',
 		price: 12990,
-		discountPrice: 9990,
-		stock: 100,
+		oldPrice: 9990,
+		stockQuantity: 100,
 		category: 'airpods',
 		color: 'white',
 		memory: '1gb',
@@ -99,8 +99,8 @@ const MOCK_PRODUCTS: Product[] = [
 		name: 'iPad Pro 11" M2',
 		description: 'Мощный ноутбук для профессионалов с чипом M2.',
 		price: 99990,
-		discountPrice: 89990,
-		stock: 5,
+		oldPrice: 89990,
+		stockQuantity: 5,
 		category: 'ipad',
 		color: 'silver',
 		memory: '1tb',
@@ -112,8 +112,8 @@ const MOCK_PRODUCTS: Product[] = [
 		name: 'iPhone 15 Pro Max',
 		description: 'Флагманский смартфон Apple с чипом A17 Bionic.',
 		price: 129990,
-		discountPrice: 119990,
-		stock: 25,
+		oldPrice: 119990,
+		stockQuantity: 25,
 		category: 'iphone',
 		color: 'black',
 		memory: '256gb',
@@ -129,8 +129,8 @@ const MOCK_PRODUCTS: Product[] = [
 		name: 'MacBook Pro 14" M2',
 		description: 'Мощный ноутбук для профессионалов с чипом M2.',
 		price: 199990,
-		discountPrice: 169990,
-		stock: 10,
+		oldPrice: 169990,
+		stockQuantity: 10,
 		category: 'macbook',
 		color: 'silver',
 		memory: '1tb',
@@ -139,7 +139,7 @@ const MOCK_PRODUCTS: Product[] = [
 	},
 ]
 
-const useProductStore = create<ProductState>(set => ({
+const useProductStore = create<ProductState>((set, get) => ({
 	products: [],
 	isLoading: false,
 	error: null,
@@ -162,7 +162,8 @@ const useProductStore = create<ProductState>(set => ({
 	},
 
 	getProductById: (id: number): Product => {
-		return MOCK_PRODUCTS.find(product => product.id === id) ?? ({} as Product)
+		// return MOCK_PRODUCTS.find(product => product.id === id) ?? ({} as Product)
+		return get().products.find(product => product.id === id) ?? ({} as Product)
 	},
 
 	getPopularProducts: (count: number) => {

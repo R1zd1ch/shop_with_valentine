@@ -1,4 +1,4 @@
-import QuestionsMain from '@/components/catalog/item-card/QuestionsPage/QuestionsMain'
+import QuestionsMain from '@/components/shop/catalog/item-card/QuestionsPage/QuestionsMain'
 
 const ItemCard = async ({
 	params,

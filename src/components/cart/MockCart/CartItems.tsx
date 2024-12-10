@@ -10,7 +10,7 @@ interface CartItem {
 	productId: number
 	quantity: number
 	price: number
-	discountPrice?: number // Скидочная цена товара
+	oldPrice?: number // Скидочная цена товара
 }
 
 interface CartItemsProps {

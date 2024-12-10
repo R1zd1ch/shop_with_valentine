@@ -5,7 +5,7 @@ export interface CartItem {
 	productId: number
 	quantity: number
 	price: number
-	discountPrice?: number // Скидочная цена товара в корзине
+	oldPrice?: number // Скидочная цена товара в корзине
 }
 
 export interface PromoCode {
@@ -77,7 +77,7 @@ const useCartStore = create<CartStore>((set, get) => ({
 				productId: 1,
 				quantity: 2,
 				price: 100,
-				discountPrice: 90,
+				oldPrice: 90,
 			},
 			{ id: 2, userId: 1, productId: 2, quantity: 1, price: 200 },
 		]
@@ -115,7 +115,7 @@ const useCartStore = create<CartStore>((set, get) => ({
 
 		// Рассчитываем общую стоимость с учетом скидочных цен
 		const total = items.reduce((acc, item) => {
-			const itemPrice = item.discountPrice ?? item.price
+			const itemPrice = item.oldPrice ?? item.price
 			return acc + itemPrice * item.quantity
 		}, 0)
 
@@ -141,7 +141,7 @@ const useCartStore = create<CartStore>((set, get) => ({
 			productId,
 			quantity = 1,
 			price = 0,
-			discountPrice,
+			oldPrice,
 		} = currentItem
 
 		if (!id || !productId) return
@@ -157,7 +157,7 @@ const useCartStore = create<CartStore>((set, get) => ({
 				productId,
 				quantity,
 				price,
-				discountPrice,
+				oldPrice,
 			})
 		}
 
@@ -166,10 +166,10 @@ const useCartStore = create<CartStore>((set, get) => ({
 
 	updateItem: () => {
 		const { currentItem, CartItems } = get()
-		const { id, quantity = 1, price = 0, discountPrice } = currentItem
+		const { id, quantity = 1, price = 0, oldPrice } = currentItem
 
 		const updatedCartItems = CartItems.map(item =>
-			item.id === id ? { ...item, quantity, price, discountPrice } : item
+			item.id === id ? { ...item, quantity, price, oldPrice } : item
 		)
 
 		get().setCartItems(updatedCartItems)
@@ -196,7 +196,7 @@ const useCartStore = create<CartStore>((set, get) => ({
 	updateCurrentItemQuantity: quantity =>
 		set(state => {
 			const currentPricePerUnit =
-				((state.currentItem.discountPrice ?? state.currentItem.price) || 0) /
+				((state.currentItem.oldPrice ?? state.currentItem.price) || 0) /
 				(state.currentItem.quantity || 1)
 			return {
 				currentItem: {

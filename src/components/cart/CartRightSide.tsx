@@ -14,7 +14,7 @@ import { useToast } from '@/hooks/use-toast'
 
 interface CartItem {
 	price: number
-	discountPrice?: number
+	oldPrice?: number
 	quantity: number
 }
 
@@ -33,7 +33,7 @@ const CartRightSide: FC<CartRightSide> = ({ cartItems }) => {
 
 	useEffect(() => {
 		const original = cartItems.reduce(
-			(acc, item) => acc + (item.discountPrice ?? item.price) * item.quantity,
+			(acc, item) => acc + (item.oldPrice ?? item.price) * item.quantity,
 			0
 		)
 		setOriginalPrice(original)

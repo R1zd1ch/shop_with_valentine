@@ -27,10 +27,9 @@ const CartItemCard: FC<CartItemCardProps> = ({
 	onDecrease,
 	userId,
 }) => {
-	const hasDiscount =
-		product.discountPrice && product.discountPrice < product.price
+	const hasDiscount = product.oldPrice && product.oldPrice < product.price
 	const displayPrice = hasDiscount
-		? product.discountPrice?.toLocaleString()
+		? product.oldPrice?.toLocaleString()
 		: product.price.toLocaleString()
 
 	const {
@@ -61,21 +60,35 @@ const CartItemCard: FC<CartItemCardProps> = ({
 	}
 
 	const isFavourite = isFavouriteByUserAndProduct(userId, product.id)
-	const isOutOfStock = product.stock === 0
+	const isOutOfStock = product.stockQuantity === 0
 
 	return (
 		<Card className='flex flex-col gap-4 p-4 shadow-sm md:flex-col lg:flex-row h-full w-full'>
 			{/* Изображение товара */}
 			<div className='flex flex-row gap-4'>
-				<div className='md:w-auto'>
-					<Image
-						src={typeof product.img === 'string' ? product.img : product.img[0]}
-						alt={product.name}
-						width={80}
-						height={80}
-						className='w-32 h-40 rounded-lg object-cover md:w-32'
-					/>
-				</div>
+				{product.img ? (
+					<div className='md:w-auto'>
+						<Image
+							src={
+								typeof product.img === 'string' ? product.img : product.img[0]
+							}
+							alt={product.name}
+							width={80}
+							height={80}
+							className='w-32 h-40 rounded-lg object-cover md:w-32'
+						/>
+					</div>
+				) : (
+					<div className='md:w-auto'>
+						<Image
+							src='https://via.placeholder.com/600x400'
+							alt={product.name}
+							width={80}
+							height={80}
+							className='w-32 h-40 rounded-lg object-cover md:w-32'
+						/>
+					</div>
+				)}
 
 				{/* Основная информация */}
 				<div className='flex flex-1 flex-col gap-2'>

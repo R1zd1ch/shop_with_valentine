@@ -1,4 +1,4 @@
-import MainProfile from '@/components/profile/MainProfile'
+import MainProfile from '@/components/shop/profile/MainProfile'
 
 const Profile = async ({ params }: { params: Promise<{ userId: string }> }) => {
 	const { userId } = await params

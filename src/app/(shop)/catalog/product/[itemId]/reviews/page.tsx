@@ -1,4 +1,4 @@
-import ReviewsMain from '@/components/catalog/item-card/ReviewsPage/ReviewsMain'
+import ReviewsMain from '@/components/shop/catalog/item-card/ReviewsPage/ReviewsMain'
 
 const ItemCard = async ({
 	params,

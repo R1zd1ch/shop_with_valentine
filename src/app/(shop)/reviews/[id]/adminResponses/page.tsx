@@ -1,4 +1,4 @@
-import MainAdminResponses from '../../../../../components/shopReviews/adminReponses/MainAdminResponses'
+import MainAdminResponses from '../../../../../components/shop/shopReviews/adminReponses/MainAdminResponses'
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 	const { id } = await params

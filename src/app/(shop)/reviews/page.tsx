@@ -1,4 +1,4 @@
-import MainShopReviews from '@/components/shopReviews/MainShopReviews'
+import MainShopReviews from '@/components/shop/shopReviews/MainShopReviews'
 
 const page = ({}) => {
 	return <MainShopReviews></MainShopReviews>

@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import MainCatalog from '@/components/catalog/MainCatalog'
+import MainCatalog from '@/components/shop/catalog/MainCatalog'
 import { getProducts } from '@/utils/fetchProducts'
 
 const page: FC = async ({}) => {
