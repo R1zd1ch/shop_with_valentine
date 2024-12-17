@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
+import { useTheme } from 'next-themes'
 
 import {
 	Dialog,
@@ -27,27 +28,32 @@ const localizer = momentLocalizer(moment)
 
 const eventStyleGetter = (event: CalendarEvent) => {
 	const style: React.CSSProperties = {
-		backgroundColor: '',
+		backgroundColor: `hsl(var(--chart-${(event.type.charCodeAt(0) % 5) + 1}))`,
 		borderRadius: '5px',
 		opacity: 0.8,
-		color: 'white',
+		color: 'hsl(var(--primary-foreground))',
 		border: '0px',
 		display: 'block',
 	}
 
-	const colorMapping: Record<string, string> = {
-		delivery: 'hsl(var(--chart-1))',
-		promotion: 'hsl(var(--chart-2))',
-		profitable: 'hsl(var(--chart-3))',
-		meeting: 'hsl(var(--chart-4))',
-		task: 'hsl(var(--chart-5))',
-	}
-
-	style.backgroundColor = colorMapping[event.type] || 'hsl(var(--muted))'
-
-	if (event.completed) {
-		style.textDecoration = 'line-through'
-		style.opacity = 0.5
+	switch (event.type) {
+		case 'delivery':
+			style.backgroundColor = '#3498db'
+			break
+		case 'promotion':
+			style.backgroundColor = '#e74c3c'
+			break
+		case 'profitable':
+			style.backgroundColor = '#2ecc71'
+			break
+		case 'meeting':
+			style.backgroundColor = '#9b59b6'
+			break
+		case 'task':
+			style.backgroundColor = '#f39c12'
+			break
+		default:
+			style.backgroundColor = '#34495e'
 	}
 
 	return { style }
@@ -57,6 +63,7 @@ export default function Calendar() {
 	const { events, addEvent, toggleEventCompletion } = useCalendarStore()
 	const [selectedDate, setSelectedDate] = useState(new Date())
 	const [showAddEventDialog, setShowAddEventDialog] = useState(false)
+	const [view, setView] = useState<'month' | 'week' | 'day'>('month')
 	const [newEvent, setNewEvent] = useState<Omit<CalendarEvent, 'id'>>({
 		title: '',
 		start: new Date(),
@@ -64,6 +71,8 @@ export default function Calendar() {
 		type: 'task',
 	})
 	const [customType, setCustomType] = useState('')
+
+	const { theme } = useTheme()
 
 	const handleSelectSlot = (slotInfo: { start: Date; end: Date }) => {
 		setNewEvent({ ...newEvent, start: slotInfo.start, end: slotInfo.end })
@@ -83,7 +92,7 @@ export default function Calendar() {
 	}
 
 	return (
-		<div className='h-[600px]'>
+		<div className='h-[600px] bg-card rounded-lg shadow-lg p-4'>
 			<BigCalendar
 				localizer={localizer}
 				events={events}
@@ -92,6 +101,7 @@ export default function Calendar() {
 				style={{ height: '100%' }}
 				date={selectedDate}
 				onNavigate={date => setSelectedDate(date)}
+				view={view}
 				eventPropGetter={eventStyleGetter}
 				selectable
 				onSelectSlot={handleSelectSlot}
@@ -99,9 +109,12 @@ export default function Calendar() {
 				components={{
 					toolbar: props => (
 						<CustomToolbar
-							onView={action => props.onView(action)}
+							onView={view => {
+								setView(view)
+								props.onView(view)
+							}}
 							label={props.label}
-							View='month'
+							View={view}
 							onNavigate={action => {
 								if (action === 'TODAY') {
 									setSelectedDate(new Date())
@@ -119,11 +132,13 @@ export default function Calendar() {
 			<Dialog open={showAddEventDialog} onOpenChange={setShowAddEventDialog}>
 				<DialogContent className='bg-card text-card-foreground rounded-lg shadow-lg'>
 					<DialogHeader>
-						<DialogTitle>Добавить событие</DialogTitle>
+						<DialogTitle className='text-xl font-semibold'>
+							Добавить событие
+						</DialogTitle>
 					</DialogHeader>
 					<div className='grid gap-4 py-4'>
 						<div className='grid grid-cols-4 items-center gap-4'>
-							<Label htmlFor='title' className='text-right'>
+							<Label htmlFor='title' className='text-right text-sm'>
 								Название
 							</Label>
 							<Input
@@ -136,7 +151,7 @@ export default function Calendar() {
 							/>
 						</div>
 						<div className='grid grid-cols-4 items-center gap-4'>
-							<Label htmlFor='type' className='text-right'>
+							<Label htmlFor='type' className='text-right text-sm'>
 								Тип
 							</Label>
 							<select
@@ -148,7 +163,7 @@ export default function Calendar() {
 										type: e.target.value as EventType,
 									})
 								}
-								className='col-span-3 bg-muted text-muted-foreground'
+								className='col-span-3 bg-muted text-muted-foreground rounded-md'
 							>
 								<option value='delivery'>Поставка</option>
 								<option value='promotion'>Акция</option>
@@ -160,7 +175,7 @@ export default function Calendar() {
 						</div>
 						{newEvent.type === 'custom' && (
 							<div className='grid grid-cols-4 items-center gap-4'>
-								<Label htmlFor='customType' className='text-right'>
+								<Label htmlFor='customType' className='text-right text-sm'>
 									Свой тип
 								</Label>
 								<Input
@@ -172,7 +187,7 @@ export default function Calendar() {
 							</div>
 						)}
 						<div className='grid grid-cols-4 items-center gap-4'>
-							<Label htmlFor='start' className='text-right'>
+							<Label htmlFor='start' className='text-right text-sm'>
 								Начало
 							</Label>
 							<Input
@@ -180,13 +195,16 @@ export default function Calendar() {
 								type='datetime-local'
 								value={moment(newEvent.start).format('YYYY-MM-DDTHH:mm')}
 								onChange={e =>
-									setNewEvent({ ...newEvent, start: new Date(e.target.value) })
+									setNewEvent({
+										...newEvent,
+										start: new Date(e.target.value),
+									})
 								}
 								className='col-span-3'
 							/>
 						</div>
 						<div className='grid grid-cols-4 items-center gap-4'>
-							<Label htmlFor='end' className='text-right'>
+							<Label htmlFor='end' className='text-right text-sm'>
 								Конец
 							</Label>
 							<Input
@@ -194,7 +212,10 @@ export default function Calendar() {
 								type='datetime-local'
 								value={moment(newEvent.end).format('YYYY-MM-DDTHH:mm')}
 								onChange={e =>
-									setNewEvent({ ...newEvent, end: new Date(e.target.value) })
+									setNewEvent({
+										...newEvent,
+										end: new Date(e.target.value),
+									})
 								}
 								className='col-span-3'
 							/>
@@ -202,7 +223,7 @@ export default function Calendar() {
 					</div>
 					<Button
 						onClick={handleAddEvent}
-						className='bg-primary text-primary-foreground hover:bg-primary-foreground'
+						className='bg-primary text-primary-foreground hover:bg-primary/80 w-full'
 					>
 						Добавить событие
 					</Button>

@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/dashboard/app-sidebar'
 import Header from '@/components/dashboard/Layout/Header'
+import FloatButton from '@/components/float-button'
 
 export async function Layout({ children }: { children: React.ReactNode }) {
 	const cookieStore = await cookies()
@@ -24,6 +25,7 @@ export async function Layout({ children }: { children: React.ReactNode }) {
 					<main className='w-full'>
 						<div className='font-bold text-2xl w-fit ml-4'></div>
 						{children}
+						<FloatButton></FloatButton>
 					</main>
 				</SidebarInset>
 			</div>

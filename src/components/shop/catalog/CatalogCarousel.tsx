@@ -4,8 +4,15 @@ import 'slick-carousel/slick/slick-theme.css'
 import Image from 'next/image'
 import { Product } from '@/storage/UseProductStore'
 import { useState, useMemo } from 'react'
+import validateImageUrl from '@/utils/validateImage'
 
-const SimpleCarousel = ({ product }: { product: Product }) => {
+const SimpleCarousel = ({
+	product,
+	isPreview = false,
+}: {
+	product: Product
+	isPreview?: boolean
+}) => {
 	const [currentSlide, setCurrentSlide] = useState(0)
 
 	const settings = {
@@ -46,11 +53,11 @@ const SimpleCarousel = ({ product }: { product: Product }) => {
 						<Image
 							draggable={false}
 							key={index}
-							src={image}
+							src={validateImageUrl(image)}
 							alt={product.name}
 							width={400}
 							height={300}
-							className='w-full h-40 object-cover'
+							className={`w-full object-cover ${isPreview ? 'h-60' : 'h-40'}`}
 						/>
 					))}
 			</Slider>

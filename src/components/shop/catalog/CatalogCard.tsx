@@ -11,6 +11,7 @@ import { Product } from '@/storage/UseProductStore'
 import useFavouritesStore from '@/storage/UseFavourites'
 import Link from 'next/link'
 import { ToastAction } from '../../ui/toast'
+import validateImageUrl from '@/utils/validateImage'
 
 const DURATION_TIME = 2000
 
@@ -151,7 +152,7 @@ const ProductCard = ({ product }: { product: Product }) => {
 						typeof product.img === 'string' ? (
 							<Image
 								draggable={false}
-								src={product.img || 'https://via.placeholder.com/400x300'} // Проверка на наличие строки изображения
+								src={validateImageUrl(product.img)} // Проверка URL изображения
 								alt={product.name}
 								width={400}
 								height={300}
@@ -161,7 +162,6 @@ const ProductCard = ({ product }: { product: Product }) => {
 							<CatalogCarousel product={product} />
 						)
 					) : (
-						// Если изображения нет вообще, показываем изображение по умолчанию
 						<Image
 							draggable={false}
 							src='https://via.placeholder.com/400x300' // Default image
@@ -173,7 +173,6 @@ const ProductCard = ({ product }: { product: Product }) => {
 					)}
 				</div>
 			</CardHeader>
-
 			<CardContent className='p-2 '>
 				<div className='mt-1 flex flex-col text-start space-y-2 px-2 cursor-pointer'>
 					<p className='text-lg font-bold text-card-foreground truncate'>
@@ -182,18 +181,18 @@ const ProductCard = ({ product }: { product: Product }) => {
 					<p className='text-xs text-muted-foreground truncate'>
 						{product.description}
 					</p>
-					<div className='flex flex-row  items start gap-2'>
-						<p className='text-base font-bold text-card-foreground '>
-							{product.oldPrice ? (
-								<span className='text-red-500 text-lg'>
+					<div className='flex flex-row items-start gap-2'>
+						{product.oldPrice ? (
+							<>
+								<p className='text-lg font-bold text-red-500'>
+									{product.price.toLocaleString()} ₽
+								</p>
+								<p className='text-xs line-through text-muted-foreground'>
 									{product.oldPrice.toLocaleString()} ₽
-								</span>
-							) : (
-								product.price.toLocaleString() + ' ₽'
-							)}{' '}
-						</p>
-						{product.oldPrice && (
-							<p className='text-xs line-through text-muted-foreground'>
+								</p>
+							</>
+						) : (
+							<p className='text-lg font-bold text-card-foreground'>
 								{product.price.toLocaleString()} ₽
 							</p>
 						)}

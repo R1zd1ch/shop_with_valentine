@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
 		return [
 			{
 				source: '/api/:path*',
-				destination: 'https://shopapi-h5u6.onrender.com/shop_api/v1/:path*', // Прокси запросов
+				destination: 'https://shopapi-h5u6.onrender.com/shop_api/v1/:path*',
 			},
 		]
 	},
@@ -14,6 +14,10 @@ const nextConfig: NextConfig = {
 			{
 				protocol: 'https',
 				hostname: 'via.placeholder.com',
+			},
+			{
+				protocol: 'https',
+				hostname: 'aoxtcavlbnnrjlsohgnz.supabase.co',
 			},
 		],
 	},

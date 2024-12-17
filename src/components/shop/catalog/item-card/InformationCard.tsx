@@ -124,8 +124,8 @@ const InformationCard = ({ product }: { product: Product }) => {
 							}`}
 						>
 							{product.stockQuantity > 0
-								? `${product.stockQuantity} in stockQuantity`
-								: 'Out of stockQuantity'}
+								? `${product.stockQuantity} в продаже`
+								: 'закончился'}
 						</p>
 					</div>
 				</div>

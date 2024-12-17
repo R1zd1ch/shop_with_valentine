@@ -9,7 +9,7 @@ const Header = ({}) => {
 				<p className='text-sm text-muted-foreground'>всего товаров: 0</p>
 			</div>
 			<div>
-				<AddProduct></AddProduct>
+				<AddProduct link='products/add_product'></AddProduct>
 			</div>
 		</CardHeader>
 	)

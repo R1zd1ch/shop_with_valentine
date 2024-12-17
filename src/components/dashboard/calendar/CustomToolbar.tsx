@@ -1,9 +1,12 @@
 interface CustomToolbarProps {
 	onNavigate: (action: 'PREV' | 'NEXT' | 'TODAY' | Date) => void
-	onView: (View: 'month' | 'week' | 'day') => void
+	onView: (view: 'month' | 'week' | 'day') => void
 	label: string
 	View: 'month' | 'week' | 'day'
 }
+
+const animationButton =
+	'hover:bg-primary hover:text-primary-foreground transition-colors duration-300 ease-in-out'
 
 const CustomToolbar: React.FC<CustomToolbarProps> = ({
 	onNavigate,
@@ -16,19 +19,19 @@ const CustomToolbar: React.FC<CustomToolbarProps> = ({
 			{/* Управление навигацией */}
 			<div>
 				<button
-					className='px-4 py-2 bg-muted text-muted-foreground rounded'
+					className={`px-4 py-2 bg-muted text-muted-foreground rounded ${animationButton}`}
 					onClick={() => onNavigate('TODAY')}
 				>
 					Сегодня
 				</button>
 				<button
-					className='px-4 py-2 bg-muted text-muted-foreground rounded ml-2'
+					className={`px-4 py-2 bg-muted text-muted-foreground rounded ml-2 ${animationButton}`}
 					onClick={() => onNavigate('PREV')}
 				>
 					Назад
 				</button>
 				<button
-					className='px-4 py-2 bg-muted text-muted-foreground rounded ml-2'
+					className={`px-4 py-2 bg-muted text-muted-foreground rounded ml-2 ${animationButton}`}
 					onClick={() => onNavigate('NEXT')}
 				>
 					Вперед
@@ -45,7 +48,7 @@ const CustomToolbar: React.FC<CustomToolbarProps> = ({
 						View === 'day'
 							? 'bg-primary text-primary-foreground'
 							: 'bg-muted text-muted-foreground'
-					} rounded ml-2`}
+					} rounded ml-2 ${animationButton}`}
 					onClick={() => onView('day')}
 				>
 					День
@@ -55,7 +58,7 @@ const CustomToolbar: React.FC<CustomToolbarProps> = ({
 						View === 'week'
 							? 'bg-primary text-primary-foreground'
 							: 'bg-muted text-muted-foreground'
-					} rounded ml-2`}
+					} rounded ml-2 ${animationButton}`}
 					onClick={() => onView('week')}
 				>
 					Неделя
@@ -65,7 +68,7 @@ const CustomToolbar: React.FC<CustomToolbarProps> = ({
 						View === 'month'
 							? 'bg-primary text-primary-foreground'
 							: 'bg-muted text-muted-foreground'
-					} rounded ml-2`}
+					} rounded ml-2 ${animationButton}`}
 					onClick={() => onView('month')}
 				>
 					Месяц
