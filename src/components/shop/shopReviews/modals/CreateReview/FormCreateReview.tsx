@@ -32,8 +32,8 @@ const FormCreateReview = ({
 	})
 
 	const onSubmit = (data: ReviewFormData) => {
-		console.log(1, userName, data.text)
-		addReview(1, userName, data.text)
+		console.log(1, userName, data.content)
+		addReview(1, userName, data.content)
 
 		toast({
 			title: 'Успех',
@@ -56,12 +56,12 @@ const FormCreateReview = ({
 				<Textarea
 					id='text'
 					placeholder='Напишите ваш отзыв'
-					{...register('text')}
+					{...register('content')}
 					className='mt-1 resize-none'
 					rows={6}
 				/>
-				{errors.text && (
-					<p className='text-red-500 text-sm mt-1'>{errors.text.message}</p>
+				{errors.content && (
+					<p className='text-red-500 text-sm mt-1'>{errors.content.message}</p>
 				)}
 			</div>
 			<div className='w-full flex flex-row justify-end'>

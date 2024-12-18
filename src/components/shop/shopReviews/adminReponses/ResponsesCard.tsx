@@ -45,7 +45,7 @@ const ResponsesCard = ({ adminResponse }: { adminResponse: AdminResponse }) => {
 						Ответ администратора:
 					</CardDescription>
 					<p className='text-card-foreground break-words'>
-						{adminResponse.response}
+						{adminResponse.content}
 					</p>
 				</div>
 			</CardContent>

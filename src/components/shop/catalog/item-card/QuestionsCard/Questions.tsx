@@ -112,9 +112,9 @@ const Questions = ({ productId }: { productId: number }) => {
 									new Date(b.date).getTime() - new Date(a.date).getTime()
 							)
 							.slice(0, Math.min(questions.length, 6))
-							.map(question => (
-								<div key={question.id} className='p-0'>
-									<Question questionId={question.id} />
+							.map(content => (
+								<div key={content.id} className='p-0'>
+									<Question questionId={content.id} />
 								</div>
 							))
 					) : (

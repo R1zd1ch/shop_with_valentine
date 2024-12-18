@@ -43,7 +43,7 @@ const ReviewCard: FC<ReviewCardProps> = ({ reviewId }) => {
 			</CardHeader>
 			<CardContent>
 				<div className='text-sm text-card-foreground break-words line-clamp-3'>
-					{review.comment}
+					{review.content}
 				</div>
 			</CardContent>
 		</Card>

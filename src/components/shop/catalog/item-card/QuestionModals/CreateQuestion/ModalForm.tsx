@@ -11,7 +11,7 @@ import { CardTitle } from '@/components/ui/card'
 
 // Схема валидации вопроса
 const createQuestionSchema = z.object({
-	question: z.string().min(10, 'Вопрос должен быть минимум 10 символов'),
+	content: z.string().min(10, 'Вопрос должен быть минимум 10 символов'),
 })
 
 type QuestionFormData = z.infer<typeof createQuestionSchema>
@@ -34,7 +34,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ onClose, productId }) => {
 	} = useForm<QuestionFormData>({
 		resolver: zodResolver(createQuestionSchema),
 		defaultValues: {
-			question: '',
+			content: '',
 		},
 	})
 
@@ -44,7 +44,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ onClose, productId }) => {
 			productId,
 			userId: 123,
 			username: userName,
-			question: data.question,
+			content: data.content,
 			date: new Date().toISOString(),
 			answers: [],
 		}
@@ -75,11 +75,11 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ onClose, productId }) => {
 			<CardTitle>{userName}</CardTitle>
 
 			<div>
-				<Label htmlFor='question'>Ваш вопрос:</Label>
+				<Label htmlFor='content'>Ваш вопрос:</Label>
 				<Textarea
-					id='question'
+					id='content'
 					placeholder='Введите ваш вопрос'
-					{...register('question')}
+					{...register('content')}
 					className='w-full resize-none'
 				/>
 			</div>

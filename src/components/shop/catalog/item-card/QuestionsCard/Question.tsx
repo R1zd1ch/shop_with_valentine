@@ -10,11 +10,11 @@ interface ReviewCardProps {
 }
 
 const QuestionCard: FC<ReviewCardProps> = ({ questionId }) => {
-	const question = useQuestionStore(state =>
+	const content = useQuestionStore(state =>
 		state.questions.find(r => r.id === questionId)
 	)
 
-	if (!question) {
+	if (!content) {
 		return <p>Вопрос не найден</p>
 	}
 
@@ -22,15 +22,15 @@ const QuestionCard: FC<ReviewCardProps> = ({ questionId }) => {
 		<Card className='shadow-lg p-0 bg-card w-[290px] md:w-[400px] h-36 sm:h-40 no-select'>
 			<CardHeader className='flex justify-between flex-row sm:items-center pb-1 sm:pb-4 items-start'>
 				<div className='flex flex-col md:flex-row md:items-end gap-0 sm:gap-3'>
-					<h3 className='text-lg font-semibold'>{question.username}</h3>
+					<h3 className='text-lg font-semibold'>{content.username}</h3>
 					<p className='text-xs text-muted-foreground'>
-						{format(new Date(question.date), 'd MMMM yyyy', { locale: ru })}
+						{format(new Date(content.date), 'd MMMM yyyy', { locale: ru })}
 					</p>
 				</div>
 			</CardHeader>
 			<CardContent>
 				<div className='text-sm text-card-foreground break-words line-clamp-3'>
-					{question.question}
+					{content.content}
 				</div>
 			</CardContent>
 		</Card>

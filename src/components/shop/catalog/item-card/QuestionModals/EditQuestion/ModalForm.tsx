@@ -23,7 +23,7 @@ const EditQuestionModal: React.FC<EditQuestionModalProps> = ({
 }) => {
 	const { toast } = useToast()
 	const { getQuestionById, editQuestion } = useQuestionStore()
-	const question = getQuestionById(questionId)
+	const content = getQuestionById(questionId)
 
 	const {
 		register,
@@ -32,17 +32,17 @@ const EditQuestionModal: React.FC<EditQuestionModalProps> = ({
 	} = useForm<UpdateQuestionFormData>({
 		resolver: zodResolver(updateQuestionSchema),
 		defaultValues: {
-			question: question?.question || '',
+			content: content?.content || '',
 		},
 	})
 
 	const onSubmit = (data: UpdateQuestionFormData) => {
-		if (!question) return
+		if (!content) return
 
 		editQuestion(questionId, {
-			...question,
-			username: question.username,
-			question: data.question || question.question,
+			...content,
+			username: content.username,
+			content: data.content || content.content,
 		})
 
 		toast({
@@ -64,22 +64,22 @@ const EditQuestionModal: React.FC<EditQuestionModalProps> = ({
 		}
 	}, [errors, toast])
 
-	if (!question) return null
+	if (!content) return null
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-			<CardTitle>{question.username}</CardTitle>
+			<CardTitle>{content.username}</CardTitle>
 
 			<div>
-				<Label htmlFor='question'>Вопрос:</Label>
+				<Label htmlFor='content'>Вопрос:</Label>
 				<Textarea
-					id='question'
+					id='content'
 					placeholder='Введите текст вопроса'
-					{...register('question')}
+					{...register('content')}
 					className='w-full flex-1 resize-none border-primary'
 				/>
-				{errors.question && (
-					<p className='text-sm text-red-600'>{errors.question.message}</p>
+				{errors.content && (
+					<p className='text-sm text-red-600'>{errors.content.message}</p>
 				)}
 			</div>
 

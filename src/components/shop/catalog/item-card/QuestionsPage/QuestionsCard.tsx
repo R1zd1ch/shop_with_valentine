@@ -20,14 +20,14 @@ import Link from 'next/link'
 import MainEditAnswer from '../AnswerModals/EditAnswer/MainEditAnswer'
 import MainDeleteAnswer from '../AnswerModals/DeleteAnswer/MainDeleteAnswer'
 
-const QuestionsCard = ({ question }: { question: Question }) => {
-	const parsedDate = format(new Date(question.date), 'd MMMM yyyy', {
+const QuestionsCard = ({ content }: { content: Question }) => {
+	const parsedDate = format(new Date(content.date), 'd MMMM yyyy', {
 		locale: ru,
 	})
 	const userId = 1
 
 	// Первый ответ, если он есть
-	const LastAnswer = question.answers?.[question.answers?.length - 1]
+	const LastAnswer = content.answers?.[content.answers?.length - 1]
 
 	return (
 		<Card className='max-w-full'>
@@ -37,7 +37,7 @@ const QuestionsCard = ({ question }: { question: Question }) => {
 						<AvatarImage src='https://github.com/shadcn.png' />
 						<AvatarFallback>CN</AvatarFallback>
 					</Avatar>
-					<CardTitle>{question.username}</CardTitle>
+					<CardTitle>{content.username}</CardTitle>
 				</div>
 				<div className='flex flex-col items-center gap-2'>
 					<p className='text-sm text-muted-foreground'>{parsedDate}</p>
@@ -45,7 +45,7 @@ const QuestionsCard = ({ question }: { question: Question }) => {
 			</CardHeader>
 
 			<CardContent className='max-w-full'>
-				<p className='text-base '>{question.question}</p>
+				<p className='text-base '>{content.content}</p>
 				{LastAnswer && (
 					<div className='mt-4'>
 						<p className='text-sm text-muted-foreground'>Недавний ответ:</p>
@@ -62,7 +62,7 @@ const QuestionsCard = ({ question }: { question: Question }) => {
 											locale: ru,
 										})}
 									</p>
-									<p className='mt-1 text-base'>{LastAnswer.answer}</p>
+									<p className='mt-1 text-base'>{LastAnswer.content}</p>
 								</div>
 							</div>
 							{userId === LastAnswer.userId && (
@@ -76,41 +76,41 @@ const QuestionsCard = ({ question }: { question: Question }) => {
 				)}
 			</CardContent>
 
-			{/* {(userId === question.userId ||
-				(question.answers && question.answers.length > 1)) && ( */}
+			{/* {(userId === content.userId ||
+				(content.answers && content.answers.length > 1)) && ( */}
 			<CardFooter
 				className={`flex flex-row  gap-2 ${
-					question.answers && question.answers.length > 1
+					content.answers && content.answers.length > 1
 						? 'justify-between'
 						: 'justify-between'
 				}`}
 			>
 				<div
 					className={`flex flex-row items-end w-full gap-4 ${
-						userId !== question.userId ? 'justify-between' : 'justify-between'
+						userId !== content.userId ? 'justify-between' : 'justify-between'
 					}`}
 				>
-					<MainCreateAnswer questionId={question.id}></MainCreateAnswer>
+					<MainCreateAnswer questionId={content.id}></MainCreateAnswer>
 					<div className='flex flex-row items-end gap-4'>
-						{userId === question.userId && (
+						{userId === content.userId && (
 							<div className='flex flex-row gap-2'>
-								<MainEditQuestion questionId={question.id}></MainEditQuestion>
+								<MainEditQuestion questionId={content.id}></MainEditQuestion>
 								<MainDeleteQuestion
-									questionId={question.id}
+									questionId={content.id}
 								></MainDeleteQuestion>
 							</div>
 						)}
-						{question.answers && question.answers.length > 1 && (
+						{content.answers && content.answers.length > 1 && (
 							<>
 								<div
 									className={`flex flex-col gap-2 ${
-										userId !== question.userId ? 'justify-start' : ''
+										userId !== content.userId ? 'justify-start' : ''
 									}`}
 								>
 									<p className='text-sm'>
-										Ещё {question.answers.length - 1}{' '}
+										Ещё {content.answers.length - 1}{' '}
 										{pluralize(
-											question.answers.length - 1,
+											content.answers.length - 1,
 											'ответ',
 											'ответа',
 											'ответов'
@@ -118,7 +118,7 @@ const QuestionsCard = ({ question }: { question: Question }) => {
 										.
 									</p>
 									<Link
-										href={`/catalog/product/${question.productId}/questions/answers/${question.id}`}
+										href={`/catalog/product/${content.productId}/questions/answers/${content.id}`}
 									>
 										<p className='text-sm text-primary cursor-pointer hover:text-primary/80  transition-colors duration-300'>
 											Посмотреть
@@ -130,10 +130,10 @@ const QuestionsCard = ({ question }: { question: Question }) => {
 					</div>
 				</div>
 				{/* <div className='flex flex-row items-center  gap-2'>
-					{userId === question.userId && (
+					{userId === content.userId && (
 						<>
-							<MainEditQuestion questionId={question.id}></MainEditQuestion>
-							<MainDeleteQuestion questionId={question.id}></MainDeleteQuestion>
+							<MainEditQuestion questionId={content.id}></MainEditQuestion>
+							<MainDeleteQuestion questionId={content.id}></MainDeleteQuestion>
 						</>
 					)}
 				</div> */}

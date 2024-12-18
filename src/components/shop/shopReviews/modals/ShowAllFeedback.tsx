@@ -9,11 +9,11 @@ import { Star } from 'lucide-react'
 const ShowAllFeedback = ({
 	children,
 	name,
-	text,
+	content,
 }: {
 	children: React.ReactNode
 	name: string
-	text: string
+	content: string
 }) => {
 	return (
 		<Dialog>
@@ -27,7 +27,7 @@ const ShowAllFeedback = ({
 				</DialogHeader>
 				<div className='flex flex-col gap-2'>
 					<p className='font-bold text-xl '>Мнение о магазине:</p>
-					<p className='italic'>{text}</p>
+					<p className='italic'>{content}</p>
 				</div>
 			</DialogContent>
 		</Dialog>

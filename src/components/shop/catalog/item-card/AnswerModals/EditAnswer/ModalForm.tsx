@@ -24,7 +24,7 @@ const EditAnswerModal: React.FC<EditAnswerModalProps> = ({
 	const { toast } = useToast()
 	const { getAnswersByQuestionId, editAnswer } = useQuestionStore()
 	const answers = getAnswersByQuestionId(answerId)
-	const answer = answers.find(a => a.id === answerId)
+	const content = answers.find(a => a.id === answerId)
 
 	const userName = 'Alyosha'
 
@@ -35,17 +35,17 @@ const EditAnswerModal: React.FC<EditAnswerModalProps> = ({
 	} = useForm<UpdateAnswerFormData>({
 		resolver: zodResolver(updateAnswerSchema),
 		defaultValues: {
-			answer: answer?.answer || '',
+			content: content?.content || '',
 		},
 	})
 
 	const onSubmit = (data: UpdateAnswerFormData) => {
-		if (!answer) return
+		if (!content) return
 
 		editAnswer(answerId, {
-			...answer,
-			username: answer.username || userName,
-			answer: data.answer || answer.answer,
+			...content,
+			username: content.username || userName,
+			content: data.content || content.content,
 		})
 
 		toast({
@@ -67,22 +67,22 @@ const EditAnswerModal: React.FC<EditAnswerModalProps> = ({
 		}
 	}, [errors, toast])
 
-	if (!answer) return null
+	if (!content) return null
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-			<CardTitle>{answer.username || userName}</CardTitle>
+			<CardTitle>{content.username || userName}</CardTitle>
 
 			<div>
-				<Label htmlFor='answer'>Ответ:</Label>
+				<Label htmlFor='content'>Ответ:</Label>
 				<Textarea
-					id='answer'
+					id='content'
 					placeholder='Введите текст ответа'
-					{...register('answer')}
+					{...register('content')}
 					className='w-full flex-1 resize-none border-primary'
 				/>
-				{errors.answer && (
-					<p className='text-sm text-red-600'>{errors.answer.message}</p>
+				{errors.content && (
+					<p className='text-sm text-red-600'>{errors.content.message}</p>
 				)}
 			</div>
 

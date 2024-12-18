@@ -39,14 +39,14 @@ const FormEditReview = ({
 	const review = getReviewById(id)
 	useEffect(() => {
 		if (review) {
-			const { username, text } = review
-			setInitialData({ username, text })
-			reset({ username, text })
+			const { username, content } = review
+			setInitialData({ username, content })
+			reset({ username, content })
 		}
 	}, [])
 
 	const onSubmit = (data: ReviewFormData) => {
-		editReview(id, data.username, data.text)
+		editReview(id, data.username, data.content)
 
 		toast({
 			title: 'Успех',
@@ -73,15 +73,17 @@ const FormEditReview = ({
 						Отзыв:
 					</Label>
 					<Textarea
-						id='text'
+						id='content'
 						placeholder='Отредактируйте отзыв'
-						{...register('text')}
+						{...register('content')}
 						className='mt-1 resize-none'
-						defaultValue={initialData?.text}
+						defaultValue={initialData?.content}
 						rows={6}
 					/>
-					{errors.text && (
-						<p className='text-red-500 text-sm mt-1'>{errors.text.message}</p>
+					{errors.content && (
+						<p className='text-red-500 text-sm mt-1'>
+							{errors.content.message}
+						</p>
 					)}
 				</div>
 				<Button type='submit'>Сохранить изменения</Button>

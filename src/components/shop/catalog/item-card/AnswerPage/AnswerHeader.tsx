@@ -8,14 +8,14 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Product } from '@/storage/UseProductStore'
 
 const AnswerHeader = ({
-	question,
+	content,
 	product,
 }: {
-	question: Question
+	content: Question
 	product: Product
 }) => {
 	const { getAnswersByQuestionId } = useQuestionStore()
-	const answers = getAnswersByQuestionId(question.id)
+	const answers = getAnswersByQuestionId(content.id)
 
 	return (
 		<div className='flex flex-col gap-2'>
@@ -24,11 +24,11 @@ const AnswerHeader = ({
 					<div className='w-24 h-24 aspect-square rounded-md'>
 						<Avatar className='w-full h-full'>
 							<AvatarImage src='https://github.com/shadcn.png' />
-							<AvatarFallback>{question?.username[0]}</AvatarFallback>
+							<AvatarFallback>{content?.username[0]}</AvatarFallback>
 						</Avatar>
 					</div>
 					<CardHeader className='flex flex-col justify-start gap-0 p-2 '>
-						<CardTitle>{question.username}</CardTitle>
+						<CardTitle>{content.username}</CardTitle>
 						<div className='flex flex-row gap-2 text-sm'></div>
 						<div className='flex flex-row gap-2 items-center justify-start'>
 							<div className='flex flex-row gap-2 items-end'>

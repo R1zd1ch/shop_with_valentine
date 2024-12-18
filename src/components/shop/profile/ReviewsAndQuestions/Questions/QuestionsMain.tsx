@@ -11,7 +11,7 @@ const QuestionsMain = ({ questions }: { questions: Question[] }) => {
 			<Separator className='my-4'></Separator>
 			<div>
 				{isQuestions ? (
-					<>{questions.map(question => question)}</>
+					<>{questions.map(content => content)}</>
 				) : (
 					<QAndAEmptyState
 						text={'Вопросов нет. Вы пока не задавали вопросов о товаре.'}

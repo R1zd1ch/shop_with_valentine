@@ -55,13 +55,13 @@ const ReviewsCard = ({ review }: { review: Review }) => {
 							<div className='text-sm flex flex-col gap-1 break-words max-w-full'>
 								<p className='font-bold'>Комментарий:</p>
 								<p className='text-card-foreground break-words max-w-full'>
-									{review.comment}
+									{review.content}
 								</p>
 							</div>
 						</div>
 					) : (
 						<p className='text-sm text-card-foreground break-words'>
-							{review.comment}
+							{review.content}
 						</p>
 					)}
 				</div>

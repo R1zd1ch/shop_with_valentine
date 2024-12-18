@@ -40,8 +40,8 @@ const AnswerList = ({
 		<div className='flex flex-col gap-6 mt-3'>
 			{paginatedReviews.length > 0 ? (
 				<div className='flex flex-col gap-3'>
-					{paginatedReviews.map(answer => (
-						<AnswerCard key={answer.id} userId={userId} answer={answer} />
+					{paginatedReviews.map(content => (
+						<AnswerCard key={content.id} userId={userId} content={content} />
 					))}
 				</div>
 			) : (

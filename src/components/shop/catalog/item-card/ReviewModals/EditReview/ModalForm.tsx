@@ -38,7 +38,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ reviewId, onClose }) => {
 			rating: review?.rating || 5,
 			dignities: review?.dignities || '',
 			flaws: review?.flaws || '',
-			review: review?.comment || '',
+			review: review?.content || '',
 		},
 	})
 
@@ -50,7 +50,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ reviewId, onClose }) => {
 			productId: review?.productId,
 			userId: review?.userId,
 			rating: data.rating || review?.rating,
-			comment: data.review || review?.comment,
+			content: data.review || review?.content,
 			date: review?.date,
 			dignities: data.dignities || review?.dignities,
 			flaws: data.flaws || review?.flaws,

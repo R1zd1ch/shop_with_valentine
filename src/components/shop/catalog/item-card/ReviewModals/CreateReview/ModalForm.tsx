@@ -48,7 +48,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ onClose, productId }) => {
 			userId: 123,
 			username: data.username || userName,
 			rating: data.rating, // Используем рейтинг из формы
-			comment: data.review,
+			content: data.review,
 			date: new Date().toISOString(),
 			dignities: data.dignities,
 			flaws: data.flaws,

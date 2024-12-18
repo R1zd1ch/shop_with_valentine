@@ -23,7 +23,7 @@ const QuestionsMain = ({
 	const { getQuestionById } = useQuestionStore()
 	const { getProductById } = useProductStore()
 	const parsedId = parseInt(questionId)
-	const question = getQuestionById(parsedId)
+	const content = getQuestionById(parsedId)
 	const product = getProductById(parseInt(productId))
 	const userId = 1
 	return (
@@ -38,7 +38,7 @@ const QuestionsMain = ({
 				</BackButton>
 				<div className='w-full flex gap-2 flex-col lg:flex-row'>
 					<div className='flex-1'>
-						<AnswerHeader question={question} product={product}></AnswerHeader>
+						<AnswerHeader content={content} product={product}></AnswerHeader>
 					</div>
 					<div className='w-full lg:w-1/4'>
 						<Card className='flex items-center justify-center h-full gap-2 min-h-[100px]'>
@@ -52,7 +52,7 @@ const QuestionsMain = ({
 
 				<div className='grid grid-cols-4  gap-2 lg:gap-1'>
 					<div className='col-span-4 lg:col-span-3 order-2 lg:order-1 lg:mr-2'>
-						<QuestionOnTop question={question}></QuestionOnTop>
+						<QuestionOnTop content={content}></QuestionOnTop>
 						<AnswerList questionId={questionId} userId={userId}></AnswerList>
 					</div>
 				</div>

@@ -33,8 +33,8 @@ const QuestionsList = ({ productId }: { productId: string }) => {
 		<div className='flex flex-col gap-6'>
 			{paginatedReviews.length > 0 ? (
 				<div className='flex flex-col gap-3'>
-					{paginatedReviews.map(question => (
-						<QuestionCard key={question.id} question={question} />
+					{paginatedReviews.map(content => (
+						<QuestionCard key={content.id} content={content} />
 					))}
 				</div>
 			) : (

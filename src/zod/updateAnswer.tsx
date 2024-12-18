@@ -6,7 +6,7 @@ const updateAnswerSchema = z.object({
 	userId: z.number().optional(),
 	username: z.string().optional(),
 	email: z.string().optional(),
-	answer: z.string().min(5, 'Ответ должен быть минимум 5 символов').optional(),
+	content: z.string().min(5, 'Ответ должен быть минимум 5 символов').optional(),
 })
 
 export default updateAnswerSchema

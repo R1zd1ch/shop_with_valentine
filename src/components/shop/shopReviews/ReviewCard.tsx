@@ -11,7 +11,7 @@ import EditReview from './modals/EditReview/EditReview'
 import Link from 'next/link'
 
 const ReviewCard = ({ review }: { review: Review }) => {
-	const textLength = review.text.split('').length
+	const textLength = review.content.split('').length
 	console.log(textLength)
 	const userId = 1
 	return (
@@ -40,11 +40,13 @@ const ReviewCard = ({ review }: { review: Review }) => {
 				</h3>
 
 				<p className='text-xs sm:text-sm text-muted-foreground italic '>
-					{textLength > 69 ? review.text.slice(0, 70) + '...' : review.text}
+					{textLength > 69
+						? review.content.slice(0, 70) + '...'
+						: review.content}
 				</p>
 				{textLength > 40 ? (
 					<div className='flex flex-row justify-center'>
-						<ShowAllFeedback name={review.username} text={review.text}>
+						<ShowAllFeedback name={review.username} content={review.content}>
 							<DialogTrigger>
 								<p className='text-primary text-xs   hover:text-primary/80 transition-colors duration-300 cursor-pointer'>
 									Показать весь отзыв

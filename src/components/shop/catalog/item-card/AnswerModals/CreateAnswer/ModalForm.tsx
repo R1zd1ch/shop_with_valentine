@@ -31,7 +31,7 @@ const AnswerForm: React.FC<AnswerFormProps> = ({ onClose, questionId }) => {
 	} = useForm<AnswerFormData>({
 		resolver: zodResolver(createAnswerSchema),
 		defaultValues: {
-			answer: '',
+			content: '',
 		},
 	})
 
@@ -40,7 +40,7 @@ const AnswerForm: React.FC<AnswerFormProps> = ({ onClose, questionId }) => {
 			id: Date.now(),
 			userId: Date.now(),
 			username: userName,
-			answer: data.answer,
+			content: data.content,
 			date: new Date().toISOString(),
 		}
 
@@ -78,11 +78,11 @@ const AnswerForm: React.FC<AnswerFormProps> = ({ onClose, questionId }) => {
 			<CardTitle>{userName}</CardTitle>
 
 			<div>
-				<Label htmlFor='answer'>Ваш ответ:</Label>
+				<Label htmlFor='content'>Ваш ответ:</Label>
 				<Textarea
-					id='answer'
+					id='content'
 					placeholder='Введите ваш ответ'
-					{...register('answer')}
+					{...register('content')}
 					className='w-full resize-none'
 				/>
 			</div>

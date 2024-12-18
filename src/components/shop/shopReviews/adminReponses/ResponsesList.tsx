@@ -12,8 +12,8 @@ const ResponsesList = ({ responses }: { responses: AdminResponse[] }) => {
 				{responses.length === 0 ? (
 					<p className='text-center'>Нет отзывов от администрации</p>
 				) : (
-					responses.map((response: AdminResponse, index) => (
-						<ResponsesCard key={index} adminResponse={response}></ResponsesCard>
+					responses.map((content: AdminResponse, index) => (
+						<ResponsesCard key={index} adminResponse={content}></ResponsesCard>
 					))
 				)}
 			</CardContent>

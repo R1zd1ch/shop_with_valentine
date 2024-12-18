@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-import { useTheme } from 'next-themes'
 
 import {
 	Dialog,
@@ -71,8 +70,6 @@ export default function Calendar() {
 		type: 'task',
 	})
 	const [customType, setCustomType] = useState('')
-
-	const { theme } = useTheme()
 
 	const handleSelectSlot = (slotInfo: { start: Date; end: Date }) => {
 		setNewEvent({ ...newEvent, start: slotInfo.start, end: slotInfo.end })
